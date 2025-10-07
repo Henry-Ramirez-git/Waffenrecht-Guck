@@ -6,8 +6,16 @@
     <title>Waffensachkunde | [PLATZHALTER NAME]</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="shortcut icon" href="Favicon Logo.JPG" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
     <style>
+        #lightboxModal img {
+            max-height: 80vh;
+        }
+        .gallery-item:hover img {
+            transform: scale(1.05);
+            transition: transform 0.3s ease;
+        }
+    </style>
+<style>
         .lightbox-overlay {
             background-color: rgba(0, 0, 0, 0.9) !important;
         }
@@ -359,34 +367,50 @@
                 </div>
             </div>
         </section>
-
         <!-- Gallery Section -->
         <section id="gallery" class="py-16 bg-gray-100">
-        <div class="container mx-auto px-4">
-            <h2 class="text-3xl font-bold text-center mb-12 text-green-800">Galerie</h2>
-            
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                <!-- Gallery Items -->
-                <div class="gallery-item rounded-lg overflow-hidden shadow-md" onclick="openLightbox(0)">
-                    <img src="DSC_1072.JPG" alt="-" class="w-full h-48 object-cover">
-                </div>
-                <div class="gallery-item rounded-lg overflow-hidden shadow-md" onclick="openLightbox(1)">
-                    <img src="DSC_1252.JPG" alt="-" class="w-full h-48 object-cover">
-                </div>
-                <div class="gallery-item rounded-lg overflow-hidden shadow-md" onclick="openLightbox(2)">
-                    <img src="IMG_2127.JPG" alt="-" class="w-full h-48 object-cover">
-                </div>
-                <div class="gallery-item rounded-lg overflow-hidden shadow-md" onclick="openLightbox(3)">
-                    <img src="TAGV7238.JPG" alt="-" class="w-full h-48 object-cover">
-                </div>
-                <div class="gallery-item rounded-lg overflow-hidden shadow-md" onclick="openLightbox(4)">
-                    <img src="VASQ0909.JPG" alt="-" class="w-full h-48 object-cover">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-center mb-12 text-green-800">Galerie</h2>
+                
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                    <!-- Gallery Items -->
+                    <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer" onclick="openLightbox('DSC_1072.JPG')">
+                        <img src="DSC_1072.JPG" alt="Gallery Image 1" class="w-full h-48 object-cover">
+                    </div>
+                    <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer" onclick="openLightbox('DSC_1252.JPG')">
+                        <img src="DSC_1252.JPG" alt="Gallery Image 2" class="w-full h-48 object-cover">
+                    </div>
+                    <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer" onclick="openLightbox('IMG_2127.JPG')">
+                        <img src="IMG_2127.JPG" alt="Gallery Image 3" class="w-full h-48 object-cover">
+                    </div>
+                    <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer" onclick="openLightbox('TAGV7238.JPG')">
+                        <img src="TAGV7238.JPG" alt="Gallery Image 4" class="w-full h-48 object-cover">
+                    </div>
+                    <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer" onclick="openLightbox('VASQ0909.JPG')">
+                        <img src="VASQ0909.JPG" alt="Gallery Image 5" class="w-full h-48 object-cover">
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
 
-        <!-- Sports Section -->
+            <!-- Lightbox Modal -->
+            <div id="lightboxModal" class="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50 hidden">
+                <div class="relative max-w-4xl w-full">
+                    <button onclick="closeLightbox()" class="absolute top-4 right-4 text-white text-3xl z-50">&times;</button>
+                    <button onclick="prevImage()" class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                        </svg>
+                    </button>
+                    <img id="lightboxImage" src="" alt="Enlarged view" class="w-full max-h-screen object-contain">
+                    <button onclick="nextImage()" class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </section>
+<!-- Sports Section -->
         <section id="sports" class="py-12 section-divider bg-gray-100">
             <div class="container mx-auto px-4">
                 <h2 class="text-3xl font-bold text-green-800 mb-8 text-center">Sport & Verbände</h2>
@@ -627,8 +651,7 @@
     </footer>
     <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
-    <script>
+<script>
         // Sort courses by date
         $(document).ready(function() {
             // Sort table rows by date
@@ -653,12 +676,44 @@
             alert('Vielen Dank für Ihre Nachricht! Ich werde mich schnellstmöglich bei Ihnen melden.');
             this.reset();
         });
-// Lightbox configuration
-        lightbox.option({
-            'resizeDuration': 200,
-            'wrapAround': true,
-            'positionFromTop': 100,
-            'albumLabel': 'Bild %1 von %2'
+
+        // Lightbox functionality
+        const images = ['DSC_1072.JPG', 'DSC_1252.JPG', 'IMG_2127.JPG', 'TAGV7238.JPG', 'VASQ0909.JPG'];
+        let currentIndex = 0;
+
+        function openLightbox(imageSrc) {
+            currentIndex = images.indexOf(imageSrc);
+            document.getElementById('lightboxImage').src = imageSrc;
+            document.getElementById('lightboxModal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightboxModal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        function prevImage() {
+            currentIndex = (currentIndex - 1 + images.length) % images.length;
+            document.getElementById('lightboxImage').src = images[currentIndex];
+        }
+
+        function nextImage() {
+            currentIndex = (currentIndex + 1) % images.length;
+            document.getElementById('lightboxImage').src = images[currentIndex];
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (!document.getElementById('lightboxModal').classList.contains('hidden')) {
+                if (e.key === 'Escape') {
+                    closeLightbox();
+                } else if (e.key === 'ArrowLeft') {
+                    prevImage();
+                } else if (e.key === 'ArrowRight') {
+                    nextImage();
+                }
+            }
         });
     </script>
 </html>
