@@ -1,4 +1,142 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waffenrecht-Guck</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="shortcut icon" href="mache dieses logo kl.png" />
+    <style>
+        #lightboxModal img {
+            max-height: 80vh;
+        }
+        .gallery-item:hover img {
+            transform: scale(1.05);
+            transition: transform 0.3s ease;
+        }
+    </style>
+<style>
+        .lightbox-overlay {
+            background-color: rgba(0, 0, 0, 0.9) !important;
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, #1a120b 0%, #2a1e17 100%);
+        }
+        .section-divider {
+            border-bottom: 2px solid #3c2f2f;
+        }
+        body {
+            background-color: #0a0806;
+            color: #f5f5f5;
+        }
+        .bg-gray-100 {
+            background-color: #121212;
+        }
+        .text-black-800 {
+            color: #000000;
+        }
+        .text-black-700 {
+            color: #000000;
+        }
+.bg-black-700 {
+            background-color: #2a1e17;
+        }
+        .bg-black-700:hover {
+            background-color: #3c2f2f;
+        }
+        .bg-white {
+            background-color: #f3f4f6;
+        }
+.text-gray-700 {
+            color: #f5f5f5;
+        }
+        .text-gray-600 {
+            color: #d4a373;
+        }
+        .border-gray-200 {
+            border-color: #2a1e17;
+        }
+        .bg-gray-50 {
+            background-color: #0a0806;
+        }
+        .hover\:bg-green-50:hover {
+            background-color: #1a120b;
+        }
+        .bg-green-100 {
+            background-color: #1a120b;
+        }
+        .text-red-600 {
+            color: #d4a373;
+        }
+        .bg-gray-200 {
+            background-color: #1a120b;
+        }
+.hover-scale {
+            transition: transform 0.3s ease;
+        }
+        .hover-scale:hover {
+            transform: scale(1.03);
+        }
+        .placeholder-logo {
+            width: 200px;
+            height: 200px;
+            background-color: #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6b7280;
+            font-weight: bold;
+            border-radius: 50%;
+        }
+        .placeholder-image {
+            width: 100%;
+            height: 200px;
+            background-color: #1f3a70;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6b7280;
+            font-weight: bold;
+        }
+    </style>
+</head>
+    <!-- Navigation -->
+    <nav class="bg-gray-900 shadow-md sticky top-0 z-50 border-b border-gray-800">
+<div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <ul class="flex flex-col md:flex-row w-full md:w-auto">
+                    <li class="border-b md:border-b-0 md:border-r border-gray-200 w-full md:w-auto">
+                                    <a href="#home" class="block py-4 px-6 text-white hover:bg-gray-800 font-medium">Startseite</a>
+</li>
+                    <li class="border-b md:border-b-0 md:border-r border-gray-200 w-full md:w-auto">
+                                    <a href="#courses" class="block py-4 px-6 text-white hover:bg-green-50 font-medium">Kurse</a>
+</li>
+                    <li class="border-b md:border-b-0 md:border-r border-gray-200 w-full md:w-auto">
+                                    <a href="#gallery" class="block py-4 px-6 text-white hover:bg-green-50 font-medium">Galerie</a>
+</li>
+                    <li class="border-b md:border-b-0 md:border-r border-gray-200 w-full md:w-auto">
+                                    <a href="#sports" class="block py-4 px-6 text-white hover:bg-green-50 font-medium">Sport</a>
+</li>
+                    <li class="w-full md:w-auto">
+                                    <a href="#contact" class="block py-4 px-6 text-white hover:bg-green-50 font-medium">Kontakt</a>
+</li>
+                </ul>
+            </div>
+           <div class="md:hidden hidden bg-white w-full py-4 px-4 shadow-lg" id="mobile-menu">
+            <div class="flex flex-col space-y-3">
+                <a href="#home" class="text-gray-700 hover:text-green-600 font-medium">Startseite</a>
+                <a href="#courses" class="text-gray-700 hover:text-green-600 font-medium">Kurse</a>
+                <a href="#gallery" class="text-gray-700 hover:text-green-600 font-medium">Galerie</a>
+                <a href="#sports" class="text-gray-700 hover:text-green-600 font-medium">Sport</a>
+                <a href="#reviews" class="text-gray-700 hover:text-green-600 font-medium">Bewertungen</a>
+                <a href="#contact" class="text-gray-700 hover:text-green-600 font-medium">Sport</a>
+            </div>
+        </div>
+        </div>
+    </nav>
 
+    <!-- Main Content -->
+    <main>
 <!-- Courses Section -->
         <section id="courses" class="py-12 section-divider bg-gray-100">
             <div class="container mx-auto px-4">
