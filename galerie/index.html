@@ -154,3 +154,47 @@
 
     <!-- Main Content -->
     <main>
+<!-- Gallery Section -->
+        <section id="gallery" class="py-16 bg-gray-100">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-center mb-12 text-green-800">Galerie</h2>
+                
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                    <!-- Gallery Items -->
+                    <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer" onclick="openLightbox('DSC_1072.JPG')">
+                        <img src="DSC_1072.JPG" alt="Gallery Image 1" class="w-full h-48 object-cover">
+                    </div>
+                    <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer" onclick="openLightbox('DSC_1252.JPG')">
+                        <img src="DSC_1252.JPG" alt="Gallery Image 2" class="w-full h-48 object-cover">
+                    </div>
+                    <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer" onclick="openLightbox('IMG_2127.JPG')">
+                        <img src="IMG_2127.JPG" alt="Gallery Image 3" class="w-full h-48 object-cover">
+                    </div>
+                    <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer" onclick="openLightbox('TAGV7238.JPG')">
+                        <img src="TAGV7238.JPG" alt="Gallery Image 4" class="w-full h-48 object-cover">
+                    </div>
+                    <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer" onclick="openLightbox('VASQ0909.JPG')">
+                        <img src="VASQ0909.JPG" alt="Gallery Image 5" class="w-full h-48 object-cover">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lightbox Modal -->
+            <div id="lightboxModal" class="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50 hidden">
+                <div class="relative max-w-4xl w-full">
+                    <button onclick="closeLightbox()" class="absolute top-4 right-4 text-white text-3xl z-50">&times;</button>
+                    <button onclick="prevImage()" class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                        </svg>
+                    </button>
+                    <img id="lightboxImage" src="" alt="Enlarged view" class="w-full max-h-screen object-contain">
+                    <button onclick="nextImage()" class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </section>
+        
