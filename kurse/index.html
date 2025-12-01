@@ -289,3 +289,110 @@
                 </div>
             </div>
         </section>
+         <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-200 py-8 border-t border-gray-800">
+<div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Plaatzhalter</h3>
+                    <p class="mb-4">Waffensachkunde & Sportschützenausbildung</p>
+                    <p>© 2025 Alle Rechte vorbehalten</p>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Links</h3>
+                    <ul class="space-y-2">
+                        <li>
+                    <a href="#home" class="hover:text-gray-400 transition duration-300">Startseite</a>
+</li>
+                    <li><a href="#courses" class="hover:text-gray-400 transition duration-300">Kurse</a></li>
+                        <li><a href="#gallery" class="hover:text-gray-400 transition duration-300">Galerie</a></li>
+                        <li><a href="#sports" class="hover:text-gray-400 transition duration-300">Sport</a></li>
+                    <li><a href="#reviews" class="hover:text-gray-400 transition duration-300">Bewertungen</a></li>
+                    <li><a href="#contact" class="hover:text-gray-400 transition duration-300">Kontakt</a></li>
+</ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Rechtliches</h3>
+                    <ul class="space-y-2">
+                                <li><a href="/impressum.pdf" class="hover:text-green-200 transition duration-300" download>Impressum</a></li>
+                        <li><a href="Datenschutz.pdf" class="hover:text-green-200 transition duration-300" download>Datenschutz</a></li>
+                        <li><a href="AGB Waffenrecht Guck.docx" class="hover:text-green-200 transition duration-300" download>AGB</a></li>
+</ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-green-700 mt-8 pt-6 text-center text-sm">
+                <p>Diese Website dient ausschließlich Informationszwecken. Alle Inhalte unterliegen dem deutschen Waffenrecht.</p>
+            </div>
+        </div>
+    </footer>
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+        // Sort courses by date
+        $(document).ready(function() {
+            // Sort table rows by date
+            const rows = $('tbody tr').get();
+            rows.sort(function(a, b) {
+                const dateA = new Date($(a).find('td:nth-child(2)').text().split('.').reverse().join('-'));
+                const dateB = new Date($(b).find('td:nth-child(2)').text().split('.').reverse().join('-'));
+                return dateA - dateB;
+            });
+            $('tbody').empty().append(rows);
+            
+            // Show more reviews functionality
+            $('#showMoreReviews').click(function() {
+                alert('Weitere Bewertungen würden hier geladen werden.');
+            });
+        });
+    </script>
+<script>
+        // Form submission handler
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Vielen Dank für Ihre Nachricht! Ich werde mich schnellstmöglich bei Ihnen melden.');
+            this.reset();
+        });
+
+        // Lightbox functionality
+        const images = ['DSC_1072.JPG', 'DSC_1252.JPG', 'IMG_2127.JPG', 'TAGV7238.JPG', 'VASQ0909.JPG'];
+        let currentIndex = 0;
+
+        function openLightbox(imageSrc) {
+            currentIndex = images.indexOf(imageSrc);
+            document.getElementById('lightboxImage').src = imageSrc;
+            document.getElementById('lightboxModal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightboxModal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        function prevImage() {
+            currentIndex = (currentIndex - 1 + images.length) % images.length;
+            document.getElementById('lightboxImage').src = images[currentIndex];
+        }
+
+        function nextImage() {
+            currentIndex = (currentIndex + 1) % images.length;
+            document.getElementById('lightboxImage').src = images[currentIndex];
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (!document.getElementById('lightboxModal').classList.contains('hidden')) {
+                if (e.key === 'Escape') {
+                    closeLightbox();
+                } else if (e.key === 'ArrowLeft') {
+                    prevImage();
+                } else if (e.key === 'ArrowRight') {
+                    nextImage();
+                }
+            }
+        });
+    </script>
+</html>
