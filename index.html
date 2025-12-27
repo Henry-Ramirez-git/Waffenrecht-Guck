@@ -121,31 +121,44 @@
             </div>
 </div>
     </header>
-
     <!-- Navigation -->
-    <nav class="bg-green-700 shadow-md sticky top-0 z-50 border-b border-gray-800">
-<div class="container mx-auto px-4">
-            <div class="flex flex-col md:flex-row justify-between items-center">
-                <ul class="flex flex-col md:flex-row w-full md:w-auto">
-                    <li class="border-b md:border-b-0 md:border-r border-gray-200 w-full md:w-auto">
-                                    <a href="#home" class="block py-4 px-6 text-white hover:bg-green-800 font-medium">Startseite</a>
-</li>
-                    <li class="border-b md:border-b-0 md:border-r border-gray-200 w-full md:w-auto">
-                                    <a href="#courses" class="block py-4 px-6 text-white hover:bg-green-800 font-medium">Kurse</a>
-</li>
-                    <li class="border-b md:border-b-0 md:border-r border-gray-200 w-full md:w-auto">
-                                    <a href="#gallery" class="block py-4 px-6 text-white hover:bg-green-800 font-medium">Galerie</a>
-</li>
-                    <li class="border-b md:border-b-0 md:border-r border-gray-200 w-full md:w-auto">
-                                    <a href="#sports" class="block py-4 px-6 text-white hover:bg-green-800 font-medium">Sport</a>
-</li>
-                    <li class="w-full md:w-auto">
-                                    <a href="#contact" class="block py-4 px-6 text-white hover:bg-green-800 font-medium">Kontakt</a>
-</li>
-                </ul>
+<nav class="bg-gray-900 shadow-md sticky top-0 z-50 border-b border-gray-800">
+    <div class="container mx-auto px-4">
+        <div class="flex justify-between items-center py-4">
+            <!-- Logo/Title (nur auf Handy sichtbar) -->
+            <div class="text-white font-bold text-xl md:hidden">
+                Waffenrecht-Guck
             </div>
-            <!-- Mobile Menu (versteckt, öffnet sich beim Klick) -->
-        <div id="mobile-menu" class="hidden md:hidden bg-gray-800 pb-4">
+            
+            <!-- Hamburger Button (nur auf Handy sichtbar) -->
+            <button id="menu-toggle" class="md:hidden text-white focus:outline-none">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+            
+            <!-- Desktop Navigation (nur auf Desktop sichtbar) -->
+            <ul class="hidden md:flex md:flex-row w-full">
+                <li class="md:border-r border-gray-700">
+                    <a href="#home" class="block py-4 px-6 text-white hover:bg-gray-800 font-medium">Startseite</a>
+                </li>
+                <li class="md:border-r border-gray-700">
+                    <a href="#courses" class="block py-4 px-6 text-white hover:bg-gray-800 font-medium">Kurse</a>
+                </li>
+                <li class="md:border-r border-gray-700">
+                    <a href="#gallery" class="block py-4 px-6 text-white hover:bg-gray-800 font-medium">Galerie</a>
+                </li>
+                <li class="md:border-r border-gray-700">
+                    <a href="#sports" class="block py-4 px-6 text-white hover:bg-gray-800 font-medium">Sport</a>
+                </li>
+                <li>
+                    <a href="#contact" class="block py-4 px-6 text-white hover:bg-gray-800 font-medium">Kontakt</a>
+                </li>
+            </ul>
+        </div>
+        
+        <!-- Mobile Menu (versteckt, öffnet sich beim Klick) -->
+        <div id="mobile-menu" class="hidden bg-gray-800 pb-4 md:hidden">
             <div class="flex flex-col">
                 <a href="#home" class="text-white hover:bg-gray-700 py-3 px-6 border-t border-gray-700">Startseite</a>
                 <a href="#courses" class="text-white hover:bg-gray-700 py-3 px-6 border-t border-gray-700">Kurse</a>
@@ -154,8 +167,8 @@
                 <a href="#contact" class="text-white hover:bg-gray-700 py-3 px-6 border-t border-gray-700">Kontakt</a>
             </div>
         </div>
-        </div>
-    </nav>
+    </div>
+</nav>
 
     <!-- Main Content -->
     <main>
@@ -647,36 +660,21 @@
             });
             $('tbody').empty().append(rows);
 
-                  // Mobile Menu Toggle
-        document.getElementById('mobile-menu-button').addEventListener('click', function() {
-            const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('hidden');
-        });
+            // Mobile Menu Toggle
+const menuToggle = document.getElementById('menu-toggle');
+const mobileMenu = document.getElementById('mobile-menu');
 
+menuToggle.addEventListener('click', function() {
+    mobileMenu.classList.toggle('hidden');
+});
 
-
- // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
-                
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                    
-                    // Close mobile menu if open
-                    const mobileMenu = document.getElementById('mobile-menu');
-                    if (!mobileMenu.classList.contains('hidden')) {
-                        mobileMenu.classList.add('hidden');
-                    }
-                }
-            });
-        });
+// Schließe das Menü automatisch, wenn auf einen Link geklickt wird
+const mobileLinks = mobileMenu.querySelectorAll('a');
+mobileLinks.forEach(link => {
+    link.addEventListener('click', function() {
+        mobileMenu.classList.add('hidden');
+    });
+});
 
             
     </script>
