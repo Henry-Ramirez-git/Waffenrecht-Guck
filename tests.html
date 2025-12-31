@@ -1,0 +1,116 @@
+<DOCTYPE!>
+<html lang="de">
+<body>
+    <style>
+       @keyframes scroll-right {
+    0% {
+        transform: translateX(-50%);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+@keyframes scroll-left {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+.animate-scroll-right {
+    animation: scroll-right 30s linear infinite;
+}
+
+.animate-scroll-left {
+    animation: scroll-left 30s linear infinite;
+}
+    </style>
+    <header class="relative text-gray-800 shadow-lg overflow-hidden">
+    <!-- Animierter Bilder-Hintergrund -->
+    <div class="absolute inset-0 z-0">
+        <!-- Zeile 1 - scrollt nach rechts -->
+        <div class="flex animate-scroll-right whitespace-nowrap mb-2">
+            <div class="flex">
+                <img src="AGBs-1.jpg" alt="" class="h-32 w-48 object-cover mx-1 rounded">
+                <img src="AGBs-2.jpg" alt="" class="h-32 w-48 object-cover mx-1 rounded">
+                <img src="AGBs-3.jpg" alt="" class="h-32 w-48 object-cover mx-1 rounded">
+                <img src="AGBs-4.jpg" alt="" class="h-32 w-48 object-cover mx-1 rounded">
+                <img src="AGBs-5.jpg" alt="" class="h-32 w-48 object-cover mx-1 rounded">
+            </div>
+            <!-- Wiederholung für endlosen Loop -->
+            <div class="flex">
+                <img src="AGBs-1.jpg" alt="" class="h-32 w-48 object-cover mx-1 rounded">
+                <img src="AGBs-2.jpg" alt="" class="h-32 w-48 object-cover mx-1 rounded">
+                <img src="AGBs-3.jpg" alt="" class="h-32 w-48 object-cover mx-1 rounded">
+                <img src="AGBs-4.jpg" alt="" class="h-32 w-48 object-cover mx-1 rounded">
+                <img src="AGBs-5.jpg" alt="" class="h-32 w-48 object-cover mx-1 rounded">
+            </div>
+        </div>
+        
+        <!-- Zeile 2 - scrollt nach links -->
+        <div class="flex animate-scroll-left whitespace-nowrap mb-2">
+            <div class="flex">
+                <img src="AGBs-6.jpg" alt="" class="h-32 w-48 object-cover mx-1 rounded">
+                <img src="AGBs-7.jpg" alt="" class="h-32 w-48 object-cover mx-1 rounded">
+                <img src="AGBs-8.jpg" alt="" class="h-32 w-48 object-cover mx-1 rounded">
+                <img src="AGBs-9.jpg" alt="" class="h-32 w-48 object-cover mx-1 rounded">
+                <img src="AGBs-10.jpg" alt="" class="h-32 w-48 object-cover mx-1 rounded">
+            </div>
+            <!-- Wiederholung -->
+            <div class="flex">
+                <img src="AGBs-6.jpg" alt="" class="h-32 w-48 object-cover mx-1 rounded">
+                <img src="AGBs-7.jpg" alt="" class="h-32 w-48 object-cover mx-1 rounded">
+                <img src="AGBs-8.jpg" alt="" class="h-32 w-48 object-cover mx-1 rounded">
+                <img src="AGBs-9.jpg" alt="" class="h-32 w-48 object-cover mx-1 rounded">
+                <img src="AGBs-10.jpg" alt="" class="h-32 w-48 object-cover mx-1 rounded">
+            </div>
+        </div>
+        
+        <!-- Zeile 3 - scrollt nach rechts -->
+        <div class="flex animate-scroll-right whitespace-nowrap">
+            <div class="flex">
+                <img src="Matthias LG Anschlag.JPG" alt="" class="h-32 w-48 object-cover mx-1 rounded">
+                <img src="Matthias Montur und Gewehr.JPG" alt="" class="h-32 w-48 object-cover mx-1 rounded">
+                <img src="Matthias Zielt.JPG" alt="" class="h-32 w-48 object-cover mx-1 rounded">
+                <img src="Viele Schützen.JPG" alt="" class="h-32 w-48 object-cover mx-1 rounded">
+                <img src="anschlag rausgezoomt.JPG" alt="" class="h-32 w-48 object-cover mx-1 rounded">
+            </div>
+            <!-- Wiederholung -->
+            <div class="flex">
+                <img src="Matthias LG Anschlag.JPG" alt="" class="h-32 w-48 object-cover mx-1 rounded">
+                <img src="Matthias Montur und Gewehr.JPG" alt="" class="h-32 w-48 object-cover mx-1 rounded">
+                <img src="Matthias Zielt.JPG" alt="" class="h-32 w-48 object-cover mx-1 rounded">
+                <img src="Viele Schützen.JPG" alt="" class="h-32 w-48 object-cover mx-1 rounded">
+                <img src="anschlag rausgezoomt.JPG" alt="" class="h-32 w-48 object-cover mx-1 rounded">
+            </div>
+        </div>
+        
+        <!-- Weißer Overlay für bessere Lesbarkeit -->
+        <div class="absolute inset-0 bg-white bg-opacity-70"></div>
+    </div>
+    
+    <!-- Normaler Header Content (darüber) -->
+    <div class="container mx-auto px-4 py-8 md:py-12 relative z-10">
+        <div class="flex flex-col md:flex-row items-center justify-between">
+            <div class="flex items-center mb-6 md:mb-0">
+                <div class="placeholder-logo mr-4">
+                    <img src="Logo.webp" class="h-20 w-20">
+                </div>
+                <div>
+                    <h1 class="text-3xl md:text-4xl font-bold">Naturschutz Verein</h1>
+                    <p class="text-lg md:text-xl mt-2">Zusammen Natur erleben.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    </header>
+        <footer>
+            <p> Thanks for visiting this website!</p>
+            <p> Do not Contact me, I am not available.</p>
+        </footer>
+
+    </body>   
+</html>
