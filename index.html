@@ -730,6 +730,73 @@ mobileLinks.forEach(link => {
         mobileMenu.classList.add('hidden');
     });
 });
+        // Funktion zum Laden der Kursinformationen
+function loadCourseInfo() {
+  try {
+    const savedInfo = localStorage.getItem('courseInfo');
+    if (savedInfo) {
+      const info = JSON.parse(savedInfo);
+      
+      // Aktualisiere die Informationen mit IDs
+      const nextDateEl = document.getElementById('next-course-date');
+      const deadlineEl = document.getElementById('registration-deadline');
+      const durationEl = document.getElementById('course-duration');
+      
+      if (nextDateEl) nextDateEl.textContent = info.nextCourseDate;
+      if (deadlineEl) deadlineEl.textContent = info.registrationDeadline;
+      if (durationEl) durationEl.textContent = info.duration;
+    }
+  } catch (error) {
+    console.error('Fehler beim Laden der Kursinformationen:', error);
+  }
+}
+
+// Funktion zum Laden des Kursplans
+function loadCoursePlan() {
+  try {
+    const savedCourses = localStorage.getItem('coursePlan');
+    if (savedCourses) {
+      const courses = JSON.parse(savedCourses);
+      const tbody = document.getElementById('course-tbody');
+      
+      if (!tbody) return;
+      
+      // Leere die Tabelle
+      tbody.innerHTML = '';
+      
+      // Füge alle Kurse hinzu
+      courses.forEach((course, index) => {
+        const row = document.createElement('tr');
+        if (index % 2 === 1) {
+          row.className = 'bg-gray-50';
+        }
+        
+        row.innerHTML = `
+          <td class="py-3 px-4 text-black">${course.type}</td>
+          <td class="py-3 px-4 text-black">${course.date}</td>
+          <td class="py-3 px-4 text-black font-medium">${course.deadline}</td>
+          <td class="py-3 px-4 text-black">${course.spots}</td>
+        `;
+        
+        tbody.appendChild(row);
+      });
+    }
+  } catch (error) {
+    console.error('Fehler beim Laden des Kursplans:', error);
+  }
+}
+
+// Lade die Daten beim Seitenaufruf
+document.addEventListener('DOMContentLoaded', function() {
+  loadCourseInfo();
+  loadCoursePlan();
+});
+
+// Optional: Aktualisiere alle 30 Sekunden
+setInterval(function() {
+  loadCourseInfo();
+  loadCoursePlan();
+}, 30000);
 </script>
 </body>
 </html>
