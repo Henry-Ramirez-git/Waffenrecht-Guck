@@ -101,6 +101,53 @@
             color: #6b7280;
             font-weight: bold;
         }
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        
+        @keyframes slideOut {
+            from {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+            to {
+                opacity: 0;
+                transform: translateY(-20px) scale(0.95);
+            }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+        
+        .modal-enter {
+            animation: slideIn 0.3s ease-out forwards;
+        }
+        
+        .modal-exit {
+            animation: slideOut 0.3s ease-in forwards;
+        }
+        
+        .backdrop-enter {
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+        
+        .backdrop-exit {
+            animation: fadeOut 0.3s ease-in forwards;
+        }
     </style>
 </head>
 <body class="bg-gray-50 font-sans">
@@ -394,6 +441,122 @@
     </div>
 </div>
             </div>
+
+            <!-- Anmelde-Overlay -->
+    <div id="registrationModal" class="hidden fixed inset-0 z-50 overflow-y-auto">
+        <!-- Backdrop -->
+        <div id="modalBackdrop" class="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm"></div>
+        
+        <!-- Modal Container -->
+        <div class="flex min-h-screen items-center justify-center p-4">
+            <div id="modalContent" class="relative bg-white rounded-2xl shadow-2xl max-w-2xl w-full p-8">
+                <!-- Close Button -->
+                <button 
+                    onclick="closeRegistration()"
+                    class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+                
+                <!-- Header -->
+                <div class="mb-6">
+                    <h2 class="text-3xl font-bold text-green-800 mb-2">Kursanmeldung</h2>
+                    <div class="bg-green-50 p-4 rounded-lg border border-green-200">
+                        <p class="text-gray-700"><span class="font-semibold">Kurs:</span> <span id="courseName"></span></p>
+                        <p class="text-gray-700"><span class="font-semibold">Datum:</span> <span id="courseDate"></span></p>
+                    </div>
+                </div>
+                
+                <!-- Formular -->
+                <div id="registrationForm">
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2">
+                                Name <span class="text-red-600">*</span>
+                            </label>
+                            <input 
+                                type="text" 
+                                id="userName"
+                                required
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-transparent transition"
+                                placeholder="Ihr vollständiger Name">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2">
+                                E-Mail <span class="text-red-600">*</span>
+                            </label>
+                            <input 
+                                type="email" 
+                                id="userEmail"
+                                required
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-transparent transition"
+                                placeholder="ihre.email@beispiel.de">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2">
+                                Telefon (optional)
+                            </label>
+                            <input 
+                                type="tel" 
+                                id="userPhone"
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-transparent transition"
+                                placeholder="0123 456789">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2">
+                                Nachricht / Anmerkungen (optional)
+                            </label>
+                            <textarea 
+                                id="userMessage"
+                                rows="4"
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-transparent transition resize-none"
+                                placeholder="Haben Sie besondere Fragen oder Anmerkungen?"></textarea>
+                        </div>
+                    </div>
+                    
+                    <!-- Buttons -->
+                    <div class="flex gap-4 mt-6">
+                        <button 
+                            onclick="closeRegistration()"
+                            class="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-700 py-3 px-6 rounded-lg font-medium transition duration-300">
+                            Abbrechen
+                        </button>
+                        <button 
+                            onclick="submitRegistration()"
+                            id="submitBtn"
+                            class="flex-1 bg-green-700 hover:bg-green-800 text-white py-3 px-6 rounded-lg font-medium transition duration-300 flex items-center justify-center gap-2">
+                            <span>Anmeldung absenden</span>
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Success Message (hidden by default) -->
+                <div id="successMessage" class="hidden text-center py-8">
+                    <div class="mb-4">
+                        <svg class="w-20 h-20 text-green-600 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-green-800 mb-2">Anmeldung erfolgreich!</h3>
+                    <p class="text-gray-600 mb-6">Wir haben Ihre Anmeldung erhalten und werden uns in Kürze bei Ihnen melden.</p>
+                    <button 
+                        onclick="closeRegistration()"
+                        class="bg-green-700 hover:bg-green-800 text-white py-3 px-8 rounded-lg font-medium transition duration-300">
+                        Schließen
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+            - - ende des Overlays - -
         </section>
         <!-- Gallery Section -->
         <section id="gallery" class="py-16 bg-gray-100">
@@ -797,6 +960,134 @@ setInterval(function() {
   loadCourseInfo();
   loadCoursePlan();
 }, 30000);
+        // EmailJS initialisieren
+        // WICHTIG: Ersetze 'DEIN_PUBLIC_KEY' mit deinem echten Public Key von EmailJS
+        emailjs.init('uKlv8jtgFA8GNcVIE');
+        
+        let currentCourse = '';
+        let currentDate = '';
+        
+        function openRegistration(courseName, courseDate) {
+            currentCourse = courseName;
+            currentDate = courseDate;
+            
+            // Setze Kursinformationen
+            document.getElementById('courseName').textContent = courseName;
+            document.getElementById('courseDate').textContent = courseDate;
+            
+            // Reset Form
+            document.getElementById('userName').value = '';
+            document.getElementById('userEmail').value = '';
+            document.getElementById('userPhone').value = '';
+            document.getElementById('userMessage').value = '';
+            
+            // Zeige Formular, verstecke Success Message
+            document.getElementById('registrationForm').classList.remove('hidden');
+            document.getElementById('successMessage').classList.add('hidden');
+            
+            // Zeige Modal
+            const modal = document.getElementById('registrationModal');
+            const backdrop = document.getElementById('modalBackdrop');
+            const content = document.getElementById('modalContent');
+            
+            modal.classList.remove('hidden');
+            backdrop.classList.add('backdrop-enter');
+            content.classList.add('modal-enter');
+            
+            // Verhindere Scrollen im Hintergrund
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeRegistration() {
+            const modal = document.getElementById('registrationModal');
+            const backdrop = document.getElementById('modalBackdrop');
+            const content = document.getElementById('modalContent');
+            
+            // Entferne Enter-Animationen
+            backdrop.classList.remove('backdrop-enter');
+            content.classList.remove('modal-enter');
+            
+            // Füge Exit-Animationen hinzu
+            backdrop.classList.add('backdrop-exit');
+            content.classList.add('modal-exit');
+            
+            // Warte auf Animation, dann verstecke Modal
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                backdrop.classList.remove('backdrop-exit');
+                content.classList.remove('modal-exit');
+                document.body.style.overflow = 'auto';
+            }, 300);
+        }
+        
+        async function submitRegistration() {
+            const name = document.getElementById('userName').value.trim();
+            const email = document.getElementById('userEmail').value.trim();
+            const phone = document.getElementById('userPhone').value.trim();
+            const message = document.getElementById('userMessage').value.trim();
+            
+            // Validierung
+            if (!name || !email) {
+                alert('Bitte füllen Sie Name und E-Mail aus!');
+                return;
+            }
+            
+            // Email-Validierung
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert('Bitte geben Sie eine gültige E-Mail-Adresse ein!');
+                return;
+            }
+            
+            // Button deaktivieren während des Sendens
+            const submitBtn = document.getElementById('submitBtn');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = `
+                <svg class="animate-spin h-5 w-5 text-white mx-auto" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+            `;
+            
+            try {
+                // EmailJS Parameter
+                // WICHTIG: Ersetze 'DEINE_SERVICE_ID' und 'DEIN_TEMPLATE_ID'
+                const templateParams = {
+                    course_name: currentCourse,
+                    course_date: currentDate,
+                    user_name: name,
+                    user_email: email,
+                    user_phone: phone || 'Nicht angegeben',
+                    user_message: message || 'Keine Anmerkungen'
+                };
+                
+                await emailjs.send('service_g8iwkyl', 'template_eqq4drp', templateParams);
+                
+                // Zeige Success Message
+                document.getElementById('registrationForm').classList.add('hidden');
+                document.getElementById('successMessage').classList.remove('hidden');
+                
+            } catch (error) {
+                console.error('Fehler beim Senden:', error);
+                alert('Es gab einen Fehler beim Senden Ihrer Anmeldung. Bitte versuchen Sie es später erneut.');
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalText;
+            }
+        }
+        
+        // ESC-Taste zum Schließen
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const modal = document.getElementById('registrationModal');
+                if (!modal.classList.contains('hidden')) {
+                    closeRegistration();
+                }
+            }
+        });
+        
+        // Klick außerhalb des Modals zum Schließen
+        document.getElementById('modalBackdrop').addEventListener('click', closeRegistration);
 </script>
 </body>
 </html>
