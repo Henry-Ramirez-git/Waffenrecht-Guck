@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waffenrecht-Guck</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="shortcut icon" href="mache dieses logo kl.png" />
+    <style>
+        #lightboxModal img {
+            max-height: 80vh;
+        }
+        .gallery-item:hover img {
+            transform: scale(1.05);
+            transition: transform 0.3s ease;
+        }
+    </style>
+<style>
+        .lightbox-overlay {
+            background-color: rgba(0, 0, 0, 0.9) !important;
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, #1a120b 0%, #2a1e17 100%);
+        }
+        .teeth-white {
+            backround: white;
+        }
+        .section-divider {
+            border-bottom: 2px solid #3c2f2f;
+        }
+        body {
+            background-color: #0a0806;
+            color: #f5f5f5;
+        }
+        .bg-gray-100 {
+            background-color: #121212;
+        }
+        .text-black-800 {
+            color: #000000;
+        }
+        .text-black-700 {
+            color: #000000;
+        }
+.bg-black-700 {
+            background-color: #2a1e17;
+        }
+        .bg-black-700:hover {
+            background-color: #3c2f2f;
+        }
+        .bg-white {
+            background-color: #f3f4f6;
+        }
+.text-gray-700 {
+            color: #f5f5f5;
+        }
+        .text-gray-600 {
+            color: #d4a373;
+        }
+        .border-gray-200 {
+            border-color: #2a1e17;
+        }
+        .bg-gray-50 {
+            background-color: #0a0806;
+        }
+        .hover\:bg-green-50:hover {
+            background-color: #1a120b;
+        }
+        .bg-green-100 {
+            background-color: #1a120b;
+        }
+        .text-red-600 {
+            color: #d4a373;
+        }
+        .bg-gray-200 {
+            background-color: #1a120b;
+        }
+.hover-scale {
+            transition: transform 0.3s ease;
+        }
+        .hover-scale:hover {
+            transform: scale(1.03);
+        }
+        .placeholder-logo {
+            width: 200px;
+            height: 200px;
+            background-color: #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6b7280;
+            font-weight: bold;
+            border-radius: 50%;
+        }
+        .placeholder-image {
+            width: 100%;
+            height: 200px;
+            background-color: #1f3a70;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6b7280;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <!-- Header -->
+    <header class="teeth-white text-gray-900 shadow-lg">
+<div class="container mx-auto px-4 py-8 md:py-12">
+            <div class="flex flex-col md:flex-row items-center justify-between">
+                <div class="flex items-center mb-6 md:mb-0">
+                    <div class="placeholder-logo mr-4">
+                       <img src="Screenshot 2025-12-27 161312.png">
+                    </div>
+<div>
+                        <h1 class="text-3xl md:text-4xl font-bold">Waffenrecht-Guck</h1>
+                        <p class="text-lg md:text-xl mt-2">Waffensachkunde & Sportschützenausbildung</p>
+                    </div>
+                
+        </div>
+            </div>
+</div>
+    </header>
+    <!-- Navigation -->
+<nav class="bg-green-700 shadow-md sticky top-0 z-50 border-b border-gray-800">
+    <div class="container mx-auto px-4">
+        <div class="flex justify-between items-center py-4">
+            <!-- Logo/Title (nur auf Handy sichtbar) -->
+            <div class="text-white font-bold text-xl md:hidden">
+                Waffenrecht-Guck
+            </div>
+            
+            <!-- Hamburger Button (nur auf Handy sichtbar) -->
+            <button id="menu-toggle" class="md:hidden text-white focus:outline-none">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+            
+            <!-- Desktop Navigation (nur auf Desktop sichtbar) -->
+            <ul class="hidden md:flex md:flex-row w-full">
+                <li class="md:border-r-2 border-white">
+                    <a href="https://www.waffenrecht-guck.de/#home" class="block py-4 px-6 text-white hover:bg-gray-100 hover:text-green-700 font-medium">Startseite</a>
+                </li>
+                <li class="md:border-r-2 border-white">
+                    <a href="https://www.waffenrecht-guck.de/#courses" class="block py-4 px-6 text-white hover:bg-gray-100 hover:text-green-700 font-medium">Kurse</a>
+                </li>
+                <li class="md:border-r-2 border-white">
+                    <a href="https://www.waffenrecht-guck.de/#gallery" class="block py-4 px-6 text-white hover:bg-gray-100 hover:text-green-700 font-medium">Galerie</a>
+                </li>
+                <li class="md:border-r-2 border-white">
+                    <a href="https://www.waffenrecht-guck.de/#sports" class="block py-4 px-6 text-white hover:bg-gray-100 hover:text-green-700 font-medium">Sport</a>
+                </li>
+                <li>
+                    <a href="https://www.waffenrecht-guck.de/#contact" class="block py-4 px-6 text-white hover:bg-gray-100 hover:text-green-700 font-medium">Kontakt</a>
+                </li>
+            </ul>
+        </div>
+        
+        <!-- Mobile Menu (versteckt, öffnet sich beim Klick) -->
+        <div id="mobile-menu" class="hidden bg-gray-800 pb-4 md:hidden">
+            <div class="flex flex-col">
+                <a href="https://www.waffenrecht-guck.de/#home" class="text-white hover:bg-gray-100 hover:text-green-700 py-3 px-6 border-t border-white">Startseite</a>
+                <a href="https://www.waffenrecht-guck.de/#courses" class="text-white hover:bg-gray-100 hover:text-green-700 py-3 px-6 border-t border-white">Kurse</a>
+                <a href="https://www.waffenrecht-guck.de/#gallery" class="text-white hover:bg-gray-100 hover:text-green-700 py-3 px-6 border-t border-white">Galerie</a>
+                <a href="https://www.waffenrecht-guck.de/#sports" class="text-white hover:bg-gray-100 hover:text-green-700 py-3 px-6 border-t border-white">Sport</a>
+                <a href="https://www.waffenrecht-guck.de/#contact" class="text-white hover:bg-gray-100 hover:text-green-700 py-3 px-6 border-t border-white">Kontakt</a>
+            </div>
+        </div>
+    </div>
+</nav>
+  <section id="images" class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Datenschutz</h2>
+        
+        <div class="max-w-3xl mx-auto space-y-6">
+            <!-- Bild 1 -->
+            <div class="rounded-lg overflow-hidden shadow-md">
+                <img src="datenschutz1.jpg" alt="Bild 1" class="w-full h-auto">
+            </div>
+            
+            <!-- Bild 2 -->
+            <div class="rounded-lg overflow-hidden shadow-md">
+                <img src="datenschutz2.jpg" alt="Bild 2" class="w-full h-auto">
+            </div>
+        </div>
+    </div>
+</section>
+  <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-200 py-8 border-t border-gray-800">
+<div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Infos</h3>
+                    <p class="mb-4">Waffensachkunde & Sportschützenausbildung</p>
+                    <p>© 2025 Alle Rechte vorbehalten</p>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Links</h3>
+                    <ul class="space-y-2">
+                        <li>
+                    <a href="https://waffenrecht-guck.de/#home" class="hover:text-gray-400 transition duration-300">zurück zur Startseite</a></li>
+                   </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Rechtliches</h3>
+                    <ul class="space-y-2">
+                                <li><a href="/impressum" class="hover:text-green-200 transition duration-300" download>Impressum</a></li>
+                        <li><a href="/datenschutz" class="hover:text-green-200 transition duration-300" download>Datenschutz</a></li>
+                        <li><a href="/AGBs" class="hover:text-green-200 transition duration-300" download>AGBs</a></li>
+</ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-green-700 mt-8 pt-6 text-center text-sm">
+                <p>Diese Website dient ausschließlich Informationszwecken. Alle Inhalte unterliegen dem deutschen Waffenrecht.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
