@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Waffenrecht-Guck</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <link rel="shortcut icon" href="mache dieses logo kl.png" />
     <style>
         #lightboxModal img {
@@ -302,10 +303,10 @@
                         <p class="text-xl font-bold text-green-700 mb-6">120,00 €<br><span class="text-sm">(bei Einzelunterricht 250,00 €)</span></p>
                         <div class="flex flex-col sm:flex-row gap-4">
                                <button 
-                                    onclick="openRegistration('Allgemeine Waffensachkunde', '15.03.2025')" 
-                                    class="bg-green-700 hover:bg-green-800 text-white py-2 px-4 rounded-lg font-medium text-center transition duration-300 w-full cursor-pointer">
-                                 Anmelden
-                               </button>
+                                 onclick="openRegistration('Allgemeine Waffensachkunde', '15.03.2025')" 
+                                 class="bg-green-700 hover:bg-green-800 text-white py-2 px-4 rounded-lg font-medium text-center transition duration-300 w-full cursor-pointer">
+                                  Anmelden
+                                </button>
                                 <a href="#" class="hidden bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 px-4 rounded-lg font-medium text-center transition duration-300">Kursinformationen PDF</a>
                         </div>
                     </div>
@@ -315,11 +316,11 @@
                         <p class="text-gray-700 mb-4">für Wachpersonal und gefährdete Personen</p>
                         <p class="text-xl font-bold text-green-700 mb-6">250,00 €<br><span class="text-sm"></span></p>
                         <div class="flex flex-col sm:flex-row gap-4">
-                            <button 
-                                    onclick="openRegistration('Allgemeine Waffensachkunde', '15.03.2025')" 
-                                    class="bg-green-700 hover:bg-green-800 text-white py-2 px-4 rounded-lg font-medium text-center transition duration-300 w-full cursor-pointer">
-                                 Anmelden
-                               </button>
+                           <button 
+                              onclick="openRegistration('Erweiterte Waffensachkunde', '22.03.2025')" 
+                              class="bg-green-700 hover:bg-green-800 text-white py-2 px-4 rounded-lg font-medium text-center transition duration-300 w-full cursor-pointer">
+                              Anmelden
+                            </button>
                             <a href="#" class="hidden bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 px-4 rounded-lg font-medium text-center transition duration-300">Kursinformationen PDF</a>
                         </div>
                     </div>
@@ -329,11 +330,11 @@
                         <p class="text-gray-700 mb-4">Qualifizierung zur verantwortlichen Aufsichtsperson </p>
                         <p class="text-xl font-bold text-green-700 mb-6">10,00 €</p>
                         <div class="flex flex-col sm:flex-row gap-4">
-                            <button 
-                                    onclick="openRegistration('Allgemeine Waffensachkunde', '15.03.2025')" 
-                                    class="bg-green-700 hover:bg-green-800 text-white py-2 px-4 rounded-lg font-medium text-center transition duration-300 w-full cursor-pointer">
-                                 Anmelden
-                               </button>
+                           <button 
+                              onclick="openRegistration('Schießstandaufsicht', '05.04.2025')" 
+                              class="bg-green-700 hover:bg-green-800 text-white py-2 px-4 rounded-lg font-medium text-center transition duration-300 w-full cursor-pointer">
+                             Anmelden
+                            </button>
                             <a href="#" class="hidden bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 px-4 rounded-lg font-medium text-center transition duration-300">Kursinformationen PDF</a>
                         </div>
                     </div>
@@ -344,10 +345,10 @@
                         <p class="text-xl font-bold text-green-700 mb-6">15,00 €</p>
                         <div class="flex flex-col sm:flex-row gap-4">
                            <button 
-                                    onclick="openRegistration('Allgemeine Waffensachkunde', '15.03.2025')" 
-                                    class="bg-green-700 hover:bg-green-800 text-white py-2 px-4 rounded-lg font-medium text-center transition duration-300 w-full cursor-pointer">
-                                 Anmelden
-                               </button>
+                             onclick="openRegistration('Anfängertraining Standard', '12.04.2025')" 
+                             class="bg-green-700 hover:bg-green-800 text-white py-2 px-4 rounded-lg font-medium text-center transition duration-300 w-full cursor-pointer">
+                             Anmelden
+                            </button>
                             <a href="#" class="hidden bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 px-4 rounded-lg font-medium text-center transition duration-300">Kursinformationen PDF</a>
                         </div>
                     </div>
@@ -358,10 +359,10 @@
                         <p class="text-xl font-bold text-green-700 mb-6">15,00 €</p>
                         <div class="flex flex-col sm:flex-row gap-4">
                             <button 
-                                    onclick="openRegistration('Allgemeine Waffensachkunde', '15.03.2025')" 
-                                    class="bg-green-700 hover:bg-green-800 text-white py-2 px-4 rounded-lg font-medium text-center transition duration-300 w-full cursor-pointer">
-                                 Anmelden
-                               </button>
+                             onclick="openRegistration('Anfängertraining 3-Stellung', '19.04.2025')" 
+                              class="bg-green-700 hover:bg-green-800 text-white py-2 px-4 rounded-lg font-medium text-center transition duration-300 w-full cursor-pointer">
+                              Anmelden
+                            </button>
                             <a href="#" class="hidden bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 px-4 rounded-lg font-medium text-center transition duration-300">Kursinformationen PDF</a>
                         </div>
                     </div>
@@ -372,10 +373,11 @@
                         <p class="text-xl font-bold text-green-700 mb-6">20,00 €</p>
                         <div class="flex flex-col sm:flex-row gap-4">
                           <button 
-                                    onclick="openRegistration('Allgemeine Waffensachkunde', '15.03.2025')" 
-                                    class="bg-green-700 hover:bg-green-800 text-white py-2 px-4 rounded-lg font-medium text-center transition duration-300 w-full cursor-pointer">
-                                 Anmelden
-                               </button>
+                           onclick="openRegistration('Leistungstraining', '26.04.2025')" 
+                           class="bg-green-700 hover:bg-green-800 text-white py-2 px-4 rounded-lg font-medium text-center transition duration-300 w-full cursor-pointer">
+                           Anmelden
+                         </button>
+
                             <a href="#" class="hidden bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 px-4 rounded-lg font-medium text-center transition duration-300">Kursinformationen PDF</a>
                         </div>
                     </div>
@@ -385,11 +387,11 @@
                         <p class="text-gray-700 mb-4">Beratung und behördliche Bearbeitung von waffenrechtlichen angelegenheiten</p>
                         <p class="text-xl font-bold text-green-700 mb-6">Preis nach Absprache</p>
                         <div class="flex flex-col sm:flex-row gap-4">
-                           <button 
-                                    onclick="openRegistration('Allgemeine Waffensachkunde', '15.03.2025')" 
-                                    class="bg-green-700 hover:bg-green-800 text-white py-2 px-4 rounded-lg font-medium text-center transition duration-300 w-full cursor-pointer">
-                                 Anmelden
-                               </button>
+                         <button 
+                            onclick="openRegistration('Waffenrechtliche Erbfälle', 'Nach Vereinbarung')" 
+                            class="bg-green-700 hover:bg-green-800 text-white py-2 px-4 rounded-lg font-medium text-center transition duration-300 w-full cursor-pointer">
+                             Anmelden
+                         </button>
                         </div>
                     </div>
                     
@@ -399,10 +401,10 @@
                         <p class="text-xl font-bold text-green-700 mb-6">Preis nach Absprache</p>
                         <div class="flex flex-col sm:flex-row gap-4">
                            <button 
-                                    onclick="openRegistration('Allgemeine Waffensachkunde', '15.03.2025')" 
-                                    class="bg-green-700 hover:bg-green-800 text-white py-2 px-4 rounded-lg font-medium text-center transition duration-300 w-full cursor-pointer">
-                                 Anmelden
-                               </button>
+                             onclick="openRegistration('Waffenbeurteilung', 'Nach Vereinbarung')" 
+                              class="bg-green-700 hover:bg-green-800 text-white py-2 px-4 rounded-lg font-medium text-center transition duration-300 w-full cursor-pointer">
+                              Anmelden
+                           </button>
                         </div>
                     </div>
                 </div>
