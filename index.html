@@ -203,6 +203,12 @@
                 <li class="md:border-r-2 border-white">
                     <a href="#sports" class="block py-4 px-6 text-white hover:bg-gray-100 hover:text-green-700 font-medium">Sport</a>
                 </li>
+                <li class="md:border-r-2 border-white">
+                    <a href="#flohmarkt" class="block py-4 px-6 text-white hover:bg-gray-100 hover:text-green-700 font-medium">Flohmarkt</a>
+                </li>
+                <li class="md:border-r-2 border-white">
+                    <a href="#reviews" class="block py-4 px-6 text-white hover:bg-gray-100 hover:text-green-700 font-medium">Bewertungen</a>
+                </li>
                 <li>
                     <a href="#contact" class="block py-4 px-6 text-white hover:bg-gray-100 hover:text-green-700 font-medium">Kontakt</a>
                 </li>
@@ -216,6 +222,8 @@
                 <a href="#courses" class="text-white hover:bg-gray-100 hover:text-green-700 py-3 px-6 border-t border-white">Kurse</a>
                 <a href="#gallery" class="text-white hover:bg-gray-100 hover:text-green-700 py-3 px-6 border-t border-white">Galerie</a>
                 <a href="#sports" class="text-white hover:bg-gray-100 hover:text-green-700 py-3 px-6 border-t border-white">Sport</a>
+                <a href="#flohmarkt" class="text-white hover:bg-gray-100 hover:text-green-700 py-3 px-6 border-t border-white">Flohmarkt</a>
+                <a href="#reviews" class="text-white hover:bg-gray-100 hover:text-green-700 py-3 px-6 border-t border-white">Bewertungen</a>
                 <a href="#contact" class="text-white hover:bg-gray-100 hover:text-green-700 py-3 px-6 border-t border-white">Kontakt</a>
             </div>
         </div>
@@ -740,32 +748,20 @@
                 </div>
             </div>
         </section>
-        // hier die Pdf Section
-        <section style="background-color: #d4edda; padding: 60px 20px;">
+        <!-- Schützenflohmarkt Section -->
+<section id="reviews" style="background-color: #d4edda; padding: 60px 20px;">
     <div style="max-width: 1000px; margin: 0 auto;">
         <!-- Intro Text -->
         <div style="text-align: center; margin-bottom: 40px;">
             <h2 class="text-black-800" style="font-size: 28px; margin-bottom: 15px; font-weight: 600;">Schützenflohmarkt</h2>
             <p class="text-black-700" style="font-size: 18px; line-height: 1.6;">Für Schützen organisiere ich jährlich einen Schützenflohmarkt, auf dem alles Mögliche an Schützenequipment – von Waffen über Munition bis hin zu Zubehör – verkauft wird.</p>
         </div>
-
-        <!-- PDF Grid -->
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 30px;">
+        
+        <!-- Content Container -->
+        <div style="display: flex; flex-direction: column; md:flex-direction: row; gap: 30px; align-items: center; justify-content: center; flex-wrap: wrap;">
             
-            <!-- PDF Card 1 -->
-            <a href="flohmarkt-2024.pdf" class="bg-white hover-scale" style="border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); text-decoration: none; display: block;" download>
-                <div style="width: 100%; height: 280px; background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); display: flex; align-items: center; justify-content: center;">
-                    <div style="font-size: 80px;">📄</div>
-                </div>
-                <div style="padding: 20px; text-align: center;">
-                    <div class="text-black-800" style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">Flohmarkt 2024</div>
-                    <div class="text-black-700" style="font-size: 14px; margin-bottom: 15px;">Informationen zum Schützenflohmarkt 2024</div>
-                    <span style="display: inline-block; padding: 10px 20px; background-color: #4caf50; color: white; border-radius: 6px; font-size: 14px; font-weight: 500;">PDF öffnen</span>
-                </div>
-            </a>
-
-            <!-- PDF Card 2 -->
-            <a href="flohmarkt-2025.pdf" class="bg-white hover-scale" style="border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); text-decoration: none; display: block;" download>
+            <!-- PDF Card -->
+            <a href="flohmarkt-2025.pdf" class="bg-white hover-scale" style="border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); text-decoration: none; display: block; width: 100%; max-width: 350px;" download>
                 <div style="width: 100%; height: 280px; background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); display: flex; align-items: center; justify-content: center;">
                     <div style="font-size: 80px;">📄</div>
                 </div>
@@ -775,6 +771,18 @@
                     <span style="display: inline-block; padding: 10px 20px; background-color: #4caf50; color: white; border-radius: 6px; font-size: 14px; font-weight: 500;">PDF öffnen</span>
                 </div>
             </a>
+
+            <!-- Anmeldebutton Card -->
+            <div class="bg-white hover-scale" style="border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); display: block; width: 100%; max-width: 350px;">
+                <div style="width: 100%; height: 280px; background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%); display: flex; align-items: center; justify-content: center;">
+                    <div style="font-size: 80px;">✍️</div>
+                </div>
+                <div style="padding: 20px; text-align: center;">
+                    <div class="text-black-800" style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">Jetzt anmelden</div>
+                    <div class="text-black-700" style="font-size: 14px; margin-bottom: 15px;">Sichern Sie sich Ihren Standplatz</div>
+                    <button style="display: inline-block; padding: 10px 20px; background-color: #ff9800; color: white; border: none; border-radius: 6px; font-size: 14px; font-weight: 500; cursor: pointer; transition: background-color 0.3s;">Zur Anmeldung</button>
+                </div>
+            </div>
 
         </div>
     </div>
@@ -831,6 +839,149 @@
 </div>
             </div>
         </section>
+        
+<!-- Flohmarkt-Anmelde-Overlay -->
+<div id="flohmarktModal" class="hidden fixed inset-0 z-50 overflow-y-auto">
+    <!-- Backdrop -->
+    <div id="flohmarktBackdrop" class="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm"></div>
+    
+    <!-- Modal Container -->
+    <div class="flex min-h-screen items-center justify-center p-4">
+        <div id="flohmarktContent" class="relative bg-white rounded-2xl shadow-2xl max-w-2xl w-full p-8">
+            <!-- Close Button -->
+            <button 
+                onclick="closeFlohmarktRegistration()"
+                class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+            
+            <!-- Header -->
+            <div class="mb-6">
+                <h2 class="text-3xl font-bold text-green-800 mb-2">Standplatz-Anmeldung</h2>
+                <div class="bg-green-50 p-4 rounded-lg border border-green-200">
+                    <p class="text-gray-700"><span class="font-semibold">Veranstaltung:</span> Schützenflohmarkt 2025</p>
+                    <p class="text-gray-700"><span class="font-semibold">Standplatzgebühr:</span> [HIER PREIS EINFÜGEN]</p>
+                </div>
+            </div>
+            
+            <!-- Formular -->
+            <div id="flohmarktForm">
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-gray-700 font-medium mb-2">
+                            Name <span class="text-red-600">*</span>
+                        </label>
+                        <input 
+                            type="text" 
+                            id="flohmarktName"
+                            required
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-transparent transition text-black"
+                            placeholder="Ihr vollständiger Name">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-gray-700 font-medium mb-2">
+                            E-Mail <span class="text-red-600">*</span>
+                        </label>
+                        <input 
+                            type="email" 
+                            id="flohmarktEmail"
+                            required
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-transparent transition text-black"
+                            placeholder="ihre.email@beispiel.de">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-gray-700 font-medium mb-2">
+                            Telefon <span class="text-red-600">*</span>
+                        </label>
+                        <input 
+                            type="tel" 
+                            id="flohmarktPhone"
+                            required
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-transparent transition text-black"
+                            placeholder="0123 456789">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-gray-700 font-medium mb-2">
+                            Anzahl der gewünschten Standplätze <span class="text-red-600">*</span>
+                        </label>
+                        <select 
+                            id="flohmarktStands"
+                            required
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-transparent transition text-black">
+                            <option value="">Bitte wählen...</option>
+                            <option value="1">1 Standplatz</option>
+                            <option value="2">2 Standplätze</option>
+                            <option value="3">3 Standplätze</option>
+                            <option value="4">4 oder mehr Standplätze</option>
+                        </select>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-gray-700 font-medium mb-2">
+                            Art der Artikel, die Sie verkaufen möchten
+                        </label>
+                        <textarea 
+                            id="flohmarktItems"
+                            rows="3"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-transparent transition resize-none text-black"
+                            placeholder="z.B. Waffen, Munition, Zubehör, Bekleidung..."></textarea>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-gray-700 font-medium mb-2">
+                            Zusätzliche Anmerkungen (optional)
+                        </label>
+                        <textarea 
+                            id="flohmarktMessage"
+                            rows="3"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-transparent transition resize-none text-black"
+                            placeholder="Besondere Wünsche oder Fragen..."></textarea>
+                    </div>
+                </div>
+                
+                <!-- Buttons -->
+                <div class="flex gap-4 mt-6">
+                    <button 
+                        onclick="closeFlohmarktRegistration()"
+                        class="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-700 py-3 px-6 rounded-lg font-medium transition duration-300">
+                        Abbrechen
+                    </button>
+                    <button 
+                        onclick="submitFlohmarktRegistration()"
+                        id="flohmarktSubmitBtn"
+                        class="flex-1 bg-green-700 hover:bg-green-800 text-white py-3 px-6 rounded-lg font-medium transition duration-300 flex items-center justify-center gap-2">
+                        <span>Anmeldung absenden</span>
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Success Message (hidden by default) -->
+            <div id="flohmarktSuccess" class="hidden text-center py-8">
+                <div class="mb-4">
+                    <svg class="w-20 h-20 text-green-600 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-2xl font-bold text-green-800 mb-2">Anmeldung erfolgreich!</h3>
+                <p class="text-gray-600 mb-6">Vielen Dank für Ihre Anmeldung zum Schützenflohmarkt. Wir werden uns in Kürze bei Ihnen melden.</p>
+                <button 
+                    onclick="closeFlohmarktRegistration()"
+                    class="bg-green-700 hover:bg-green-800 text-white py-3 px-8 rounded-lg font-medium transition duration-300">
+                    Schließen
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+        
         <!-- Contact Section -->
         <section id="contact" class="py-12">
            <div class="container mx-auto px-4">
@@ -945,6 +1096,7 @@
                     <li><a href="#courses" class="hover:text-gray-400 transition duration-300">Kurse</a></li>
                         <li><a href="#gallery" class="hover:text-gray-400 transition duration-300">Galerie</a></li>
                         <li><a href="#sports" class="hover:text-gray-400 transition duration-300">Sport</a></li>
+                        <li><a href="#flohmarkt" class="hover:text-gray-400 transition duration-300">Flohmarkt</a></li>
                     <li><a href="#reviews" class="hover:text-gray-400 transition duration-300">Bewertungen</a></li>
                     <li><a href="#contact" class="hover:text-gray-400 transition duration-300">Kontakt</a></li>
 </ul>
@@ -1426,6 +1578,138 @@ document.addEventListener('DOMContentLoaded', function() {
 setInterval(loadReviews, 30000);
         // Klick außerhalb des Modals zum Schließen
         document.getElementById('modalBackdrop').addEventListener('click', closeRegistration);
+// FLOHMARKT-ANMELDUNG FUNKTIONEN
+
+function openFlohmarktRegistration() {
+    // Reset Form
+    document.getElementById('flohmarktName').value = '';
+    document.getElementById('flohmarktEmail').value = '';
+    document.getElementById('flohmarktPhone').value = '';
+    document.getElementById('flohmarktStands').value = '';
+    document.getElementById('flohmarktItems').value = '';
+    document.getElementById('flohmarktMessage').value = '';
+    
+    // Zeige Formular, verstecke Success Message
+    document.getElementById('flohmarktForm').classList.remove('hidden');
+    document.getElementById('flohmarktSuccess').classList.add('hidden');
+    
+    // Zeige Modal
+    const modal = document.getElementById('flohmarktModal');
+    const backdrop = document.getElementById('flohmarktBackdrop');
+    const content = document.getElementById('flohmarktContent');
+    
+    modal.classList.remove('hidden');
+    backdrop.classList.add('backdrop-enter');
+    content.classList.add('modal-enter');
+    
+    // Verhindere Scrollen im Hintergrund
+    document.body.style.overflow = 'hidden';
+}
+
+function closeFlohmarktRegistration() {
+    const modal = document.getElementById('flohmarktModal');
+    const backdrop = document.getElementById('flohmarktBackdrop');
+    const content = document.getElementById('flohmarktContent');
+    
+    // Entferne Enter-Animationen
+    backdrop.classList.remove('backdrop-enter');
+    content.classList.remove('modal-enter');
+    
+    // Füge Exit-Animationen hinzu
+    backdrop.classList.add('backdrop-exit');
+    content.classList.add('modal-exit');
+    
+    // Warte auf Animation, dann verstecke Modal
+    setTimeout(() => {
+        modal.classList.add('hidden');
+        backdrop.classList.remove('backdrop-exit');
+        content.classList.remove('modal-exit');
+        document.body.style.overflow = 'auto';
+    }, 300);
+}
+
+async function submitFlohmarktRegistration() {
+    const name = document.getElementById('flohmarktName').value.trim();
+    const email = document.getElementById('flohmarktEmail').value.trim();
+    const phone = document.getElementById('flohmarktPhone').value.trim();
+    const stands = document.getElementById('flohmarktStands').value;
+    const items = document.getElementById('flohmarktItems').value.trim();
+    const message = document.getElementById('flohmarktMessage').value.trim();
+    
+    // Validierung
+    if (!name || !email || !phone || !stands) {
+        alert('Bitte füllen Sie alle Pflichtfelder aus!');
+        return;
+    }
+    
+    // Email-Validierung
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        alert('Bitte geben Sie eine gültige E-Mail-Adresse ein!');
+        return;
+    }
+    
+    // Button deaktivieren während des Sendens
+    const submitBtn = document.getElementById('flohmarktSubmitBtn');
+    const originalText = submitBtn.innerHTML;
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = `
+        <svg class="animate-spin h-5 w-5 text-white mx-auto" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+    `;
+    
+    try {
+        // EmailJS Parameter
+        // WICHTIG: Erstelle ein neues Template in EmailJS und setze die Template-ID hier ein
+        const templateParams = {
+            vendor_name: name,
+            vendor_email: email,
+            vendor_phone: phone,
+            stand_count: stands,
+            item_types: items || 'Nicht angegeben',
+            vendor_message: message || 'Keine zusätzlichen Anmerkungen'
+        };
+        
+        console.log('=== FLOHMARKT-ANMELDUNG WIRD GESENDET ===');
+        console.log('Parameter:', templateParams);
+        
+        // WICHTIG: Ersetze 'DEINE_FLOHMARKT_TEMPLATE_ID' mit der echten Template-ID
+        await emailjs.send('service_g8iwkyl', 'DEINE_FLOHMARKT_TEMPLATE_ID', templateParams);
+        
+        console.log('✅ Flohmarkt-Anmeldung erfolgreich gesendet!');
+        
+        // Zeige Success Message
+        document.getElementById('flohmarktForm').classList.add('hidden');
+        document.getElementById('flohmarktSuccess').classList.remove('hidden');
+        
+    } catch (error) {
+        console.error('❌ FEHLER beim Senden der Flohmarkt-Anmeldung:');
+        console.error('Error:', error);
+        console.error('Status:', error.status);
+        console.error('Text:', error.text);
+        
+        alert('Es gab einen Fehler beim Senden Ihrer Anmeldung. Bitte versuchen Sie es später erneut oder kontaktieren Sie uns direkt.');
+        
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalText;
+    }
+}
+
+// ESC-Taste zum Schließen (für Flohmarkt-Modal)
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        const modal = document.getElementById('flohmarktModal');
+        if (modal && !modal.classList.contains('hidden')) {
+            closeFlohmarktRegistration();
+        }
+    }
+});
+
+// Klick außerhalb des Modals zum Schließen
+document.getElementById('flohmarktBackdrop').addEventListener('click', closeFlohmarktRegistration);
+
 </script>
 </body>
 </html>
