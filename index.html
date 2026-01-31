@@ -601,8 +601,6 @@
             </div>
         </div>
     </div>
-
-            - - ende des Overlays - -
         </section>
         <!-- Gallery Section -->
         <section id="gallery" class="py-16 bg-gray-100">
@@ -761,7 +759,7 @@
         <div style="display: flex; flex-direction: column; md:flex-direction: row; gap: 30px; align-items: center; justify-content: center; flex-wrap: wrap;">
             
             <!-- PDF Card -->
-            <a href="flohmarkt-2025.pdf" class="bg-white hover-scale" style="border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); text-decoration: none; display: block; width: 100%; max-width: 350px;" download>
+            <a href="Flyer Frickenhausen.pdf" class="bg-white hover-scale" style="border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); text-decoration: none; display: block; width: 100%; max-width: 350px;" download>
                 <div style="width: 100%; height: 280px; background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); display: flex; align-items: center; justify-content: center;">
                     <div style="font-size: 80px;">📄</div>
                 </div>
@@ -769,22 +767,9 @@
                     <div class="text-black-800" style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">Flohmarkt 2025</div>
                     <div class="text-black-700" style="font-size: 14px; margin-bottom: 15px;">Informationen zum Schützenflohmarkt 2025</div>
                     <span style="display: inline-block; padding: 10px 20px; background-color: #4caf50; color: white; border-radius: 6px; font-size: 14px; font-weight: 500;">PDF öffnen</span>
+                     <a href="#contact" onclick="highlightContact(event)" style="display: inline-block; padding: 10px 20px; background-color: #ff9800; color: white; border: none; border-radius: 6px; font-size: 14px; font-weight: 500; cursor: pointer; transition: background-color 0.3s; text-decoration: none;"> Zur Anmeldung</a>
                 </div>
             </a>
-
-            <!-- Anmeldebutton Card -->
-            <div class="bg-white hover-scale" style="border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); display: block; width: 100%; max-width: 350px;">
-                <div style="width: 100%; height: 280px; background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%); display: flex; align-items: center; justify-content: center;">
-                    <div style="font-size: 80px;">✍️</div>
-                </div>
-                <div style="padding: 20px; text-align: center;">
-                    <div class="text-black-800" style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">Jetzt anmelden</div>
-                    <div class="text-black-700" style="font-size: 14px; margin-bottom: 15px;">Sichern Sie sich Ihren Standplatz</div>
-                    <button style="display: inline-block; padding: 10px 20px; background-color: #ff9800; color: white; border: none; border-radius: 6px; font-size: 14px; font-weight: 500; cursor: pointer; transition: background-color 0.3s;">Zur Anmeldung</button>
-                </div>
-            </div>
-
-        </div>
     </div>
 </section>
        <!-- Reviews Section -->
@@ -839,148 +824,6 @@
 </div>
             </div>
         </section>
-        
-<!-- Flohmarkt-Anmelde-Overlay -->
-<div id="flohmarktModal" class="hidden fixed inset-0 z-50 overflow-y-auto">
-    <!-- Backdrop -->
-    <div id="flohmarktBackdrop" class="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm"></div>
-    
-    <!-- Modal Container -->
-    <div class="flex min-h-screen items-center justify-center p-4">
-        <div id="flohmarktContent" class="relative bg-white rounded-2xl shadow-2xl max-w-2xl w-full p-8">
-            <!-- Close Button -->
-            <button 
-                onclick="closeFlohmarktRegistration()"
-                class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                </svg>
-            </button>
-            
-            <!-- Header -->
-            <div class="mb-6">
-                <h2 class="text-3xl font-bold text-green-800 mb-2">Standplatz-Anmeldung</h2>
-                <div class="bg-green-50 p-4 rounded-lg border border-green-200">
-                    <p class="text-gray-700"><span class="font-semibold">Veranstaltung:</span> Schützenflohmarkt 2025</p>
-                    <p class="text-gray-700"><span class="font-semibold">Standplatzgebühr:</span> [HIER PREIS EINFÜGEN]</p>
-                </div>
-            </div>
-            
-            <!-- Formular -->
-            <div id="flohmarktForm">
-                <div class="space-y-4">
-                    <div>
-                        <label class="block text-gray-700 font-medium mb-2">
-                            Name <span class="text-red-600">*</span>
-                        </label>
-                        <input 
-                            type="text" 
-                            id="flohmarktName"
-                            required
-                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-transparent transition text-black"
-                            placeholder="Ihr vollständiger Name">
-                    </div>
-                    
-                    <div>
-                        <label class="block text-gray-700 font-medium mb-2">
-                            E-Mail <span class="text-red-600">*</span>
-                        </label>
-                        <input 
-                            type="email" 
-                            id="flohmarktEmail"
-                            required
-                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-transparent transition text-black"
-                            placeholder="ihre.email@beispiel.de">
-                    </div>
-                    
-                    <div>
-                        <label class="block text-gray-700 font-medium mb-2">
-                            Telefon <span class="text-red-600">*</span>
-                        </label>
-                        <input 
-                            type="tel" 
-                            id="flohmarktPhone"
-                            required
-                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-transparent transition text-black"
-                            placeholder="0123 456789">
-                    </div>
-                    
-                    <div>
-                        <label class="block text-gray-700 font-medium mb-2">
-                            Anzahl der gewünschten Standplätze <span class="text-red-600">*</span>
-                        </label>
-                        <select 
-                            id="flohmarktStands"
-                            required
-                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-transparent transition text-black">
-                            <option value="">Bitte wählen...</option>
-                            <option value="1">1 Standplatz</option>
-                            <option value="2">2 Standplätze</option>
-                            <option value="3">3 Standplätze</option>
-                            <option value="4">4 oder mehr Standplätze</option>
-                        </select>
-                    </div>
-                    
-                    <div>
-                        <label class="block text-gray-700 font-medium mb-2">
-                            Art der Artikel, die Sie verkaufen möchten
-                        </label>
-                        <textarea 
-                            id="flohmarktItems"
-                            rows="3"
-                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-transparent transition resize-none text-black"
-                            placeholder="z.B. Waffen, Munition, Zubehör, Bekleidung..."></textarea>
-                    </div>
-                    
-                    <div>
-                        <label class="block text-gray-700 font-medium mb-2">
-                            Zusätzliche Anmerkungen (optional)
-                        </label>
-                        <textarea 
-                            id="flohmarktMessage"
-                            rows="3"
-                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-transparent transition resize-none text-black"
-                            placeholder="Besondere Wünsche oder Fragen..."></textarea>
-                    </div>
-                </div>
-                
-                <!-- Buttons -->
-                <div class="flex gap-4 mt-6">
-                    <button 
-                        onclick="closeFlohmarktRegistration()"
-                        class="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-700 py-3 px-6 rounded-lg font-medium transition duration-300">
-                        Abbrechen
-                    </button>
-                    <button 
-                        onclick="submitFlohmarktRegistration()"
-                        id="flohmarktSubmitBtn"
-                        class="flex-1 bg-green-700 hover:bg-green-800 text-white py-3 px-6 rounded-lg font-medium transition duration-300 flex items-center justify-center gap-2">
-                        <span>Anmeldung absenden</span>
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                        </svg>
-                    </button>
-                </div>
-            </div>
-            
-            <!-- Success Message (hidden by default) -->
-            <div id="flohmarktSuccess" class="hidden text-center py-8">
-                <div class="mb-4">
-                    <svg class="w-20 h-20 text-green-600 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                    </svg>
-                </div>
-                <h3 class="text-2xl font-bold text-green-800 mb-2">Anmeldung erfolgreich!</h3>
-                <p class="text-gray-600 mb-6">Vielen Dank für Ihre Anmeldung zum Schützenflohmarkt. Wir werden uns in Kürze bei Ihnen melden.</p>
-                <button 
-                    onclick="closeFlohmarktRegistration()"
-                    class="bg-green-700 hover:bg-green-800 text-white py-3 px-8 rounded-lg font-medium transition duration-300">
-                    Schließen
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
         
         <!-- Contact Section -->
         <section id="contact" class="py-12">
@@ -1710,6 +1553,26 @@ document.addEventListener('keydown', function(e) {
 // Klick außerhalb des Modals zum Schließen
 document.getElementById('flohmarktBackdrop').addEventListener('click', closeFlohmarktRegistration);
 
+</script>
+    <script>
+function highlightContact(event) {
+    event.preventDefault();
+    
+    // Scrolle zur Contact Section
+    const contactSection = document.getElementById('contact');
+    contactSection.scrollIntoView({ behavior: 'smooth' });
+    
+    // Leuchteffekt
+    setTimeout(() => {
+        contactSection.style.transition = 'box-shadow 0.3s ease';
+        contactSection.style.boxShadow = '0 0 30px 10px rgba(34, 197, 94, 0.6)';
+        
+        // Entferne den Effekt nach kurzer Zeit
+        setTimeout(() => {
+            contactSection.style.boxShadow = 'none';
+        }, 800);
+    }, 500);
+}
 </script>
 </body>
 </html>
