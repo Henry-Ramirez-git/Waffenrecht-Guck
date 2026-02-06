@@ -46,6 +46,13 @@
             </svg>
         );
 
+        const Edit = () => (
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+            </svg>
+        );
+
         const Star = ({ filled }) => (
             <svg width="20" height="20" viewBox="0 0 24 24" fill={filled ? "currentColor" : "none"} stroke="currentColor" strokeWidth="2">
                 <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
@@ -60,6 +67,8 @@
                 duration: '2 Tage / 16 Stunden'
             });
             const [reviews, setReviews] = useState([]);
+            const [coursePrices, setCoursePrices] = useState([]);
+            const [qualifications, setQualifications] = useState([]);
             const [newCourse, setNewCourse] = useState({
                 type: '',
                 date: '',
@@ -73,6 +82,7 @@
                 text: '',
                 date: new Date().toLocaleDateString('de-DE')
             });
+            const [newQualification, setNewQualification] = useState('');
             const [password, setPassword] = useState('');
             const [isAuthenticated, setIsAuthenticated] = useState(false);
             const [saveMessage, setSaveMessage] = useState('');
@@ -118,7 +128,6 @@
                     if (savedReviews) {
                         setReviews(JSON.parse(savedReviews));
                     } else {
-                        // Initiale Demo-Bewertungen
                         const initialReviews = [
                             { name: 'Max Mustermann', initials: 'MM', rating: 5, text: 'Sehr kompetenter Kursleiter! Habe meine Prüfung auf Anhieb bestanden und fühle mich jetzt sicher im Umgang mit Waffen.', date: '15.02.2025' },
                             { name: 'Erika Test', initials: 'ET', rating: 5, text: 'Das Training war perfekt auf meine Bedürfnisse zugeschnitten. Super geduldige Erklärungen und professionelle Atmosphäre.', date: '28.01.2025' },
@@ -127,6 +136,42 @@
                         setReviews(initialReviews);
                         localStorage.setItem('customerReviews', JSON.stringify(initialReviews));
                     }
+
+                    // Kurspreise laden
+                    const savedPrices = localStorage.getItem('coursePrices');
+                    if (savedPrices) {
+                        setCoursePrices(JSON.parse(savedPrices));
+                    } else {
+                        const initialPrices = [
+                            { name: 'Allgemeine Waffensachkunde', price: '120,00 €', note: '(bei Einzelunterricht 250,00 €)' },
+                            { name: 'Erweiterte Waffensachkunde', price: '250,00 €', note: '' },
+                            { name: 'Schießstandaufsicht', price: '10,00 €', note: '' },
+                            { name: 'Anfängertraining Standard', price: '15,00 €', note: '' },
+                            { name: 'Anfängertraining 3-Stellung', price: '15,00 €', note: '' },
+                            { name: 'Leistungstraining', price: '20,00 €', note: '' },
+                            { name: 'Waffenrechtliche Erbfälle', price: 'Preis nach Absprache', note: '' },
+                            { name: 'Waffenbeurteilung', price: 'Preis nach Absprache', note: '' }
+                        ];
+                        setCoursePrices(initialPrices);
+                        localStorage.setItem('coursePrices', JSON.stringify(initialPrices));
+                    }
+
+                    // Qualifikationen laden
+                    const savedQualifications = localStorage.getItem('qualifications');
+                    if (savedQualifications) {
+                        setQualifications(JSON.parse(savedQualifications));
+                    } else {
+                        const initialQualifications = [
+                            'Staatlich zugelassender Waffensachkundeprüfer',
+                            'DSB/BSSB lizenzierter Trainer seit 2000',
+                            'Mehr als 20 Jahre Schulungserfahrung',
+                            'Spezialisiert auf §7 WaffG und §10 AWaffV',
+                            'Regelmäßige Fortbildungen und Zertifizierungen'
+                        ];
+                        setQualifications(initialQualifications);
+                        localStorage.setItem('qualifications', JSON.stringify(initialQualifications));
+                    }
+
                 } catch (error) {
                     console.error('Fehler beim Laden der Daten:', error);
                 }
@@ -197,6 +242,51 @@
                 }
             };
 
+            const handleUpdatePrice = (index, field, value) => {
+                const updatedPrices = [...coursePrices];
+                updatedPrices[index][field] = value;
+                setCoursePrices(updatedPrices);
+            };
+
+            const handleSavePrices = () => {
+                localStorage.setItem('coursePrices', JSON.stringify(coursePrices));
+                showSaveMessage('Preise gespeichert!');
+            };
+
+            const handleAddQualification = () => {
+                if (!newQualification.trim()) {
+                    alert('Bitte eine Qualifikation eingeben!');
+                    return;
+                }
+
+                const updatedQualifications = [...qualifications, newQualification.trim()];
+                setQualifications(updatedQualifications);
+                localStorage.setItem('qualifications', JSON.stringify(updatedQualifications));
+                
+                setNewQualification('');
+                showSaveMessage('Qualifikation hinzugefügt!');
+            };
+
+            const handleDeleteQualification = (index) => {
+                if (window.confirm('Möchten Sie diese Qualifikation wirklich löschen?')) {
+                    const updatedQualifications = qualifications.filter((_, i) => i !== index);
+                    setQualifications(updatedQualifications);
+                    localStorage.setItem('qualifications', JSON.stringify(updatedQualifications));
+                    showSaveMessage('Qualifikation gelöscht!');
+                }
+            };
+
+            const handleUpdateQualification = (index, value) => {
+                const updatedQualifications = [...qualifications];
+                updatedQualifications[index] = value;
+                setQualifications(updatedQualifications);
+            };
+
+            const handleSaveQualifications = () => {
+                localStorage.setItem('qualifications', JSON.stringify(qualifications));
+                showSaveMessage('Qualifikationen gespeichert!');
+            };
+
             const showSaveMessage = (message) => {
                 setSaveMessage(message);
                 setTimeout(() => setSaveMessage(''), 3000);
@@ -235,8 +325,8 @@
                 <div className="min-h-screen bg-gradient-to-br from-green-50 to-green-100 p-4">
                     <div className="max-w-6xl mx-auto">
                         <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
-                            <h1 className="text-3xl font-bold text-green-800 mb-2">Kursplan & Bewertungs CMS</h1>
-                            <p className="text-gray-600">Verwalten Sie Ihre Kurse und Kundenbewertungen</p>
+                            <h1 className="text-3xl font-bold text-green-800 mb-2">Website CMS</h1>
+                            <p className="text-gray-600">Verwalten Sie Kurse, Preise, Qualifikationen und Bewertungen</p>
                             {saveMessage && (
                                 <div className="mt-4 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded">
                                     {saveMessage}
@@ -246,10 +336,10 @@
 
                         {/* Tab Navigation */}
                         <div className="bg-white rounded-lg shadow-lg mb-6">
-                            <div className="flex border-b">
+                            <div className="flex border-b overflow-x-auto">
                                 <button
                                     onClick={() => setActiveTab('courses')}
-                                    className={`flex-1 py-4 px-6 font-medium transition ${
+                                    className={`flex-1 py-4 px-6 font-medium transition whitespace-nowrap ${
                                         activeTab === 'courses'
                                             ? 'bg-green-700 text-white'
                                             : 'bg-white text-gray-700 hover:bg-gray-100'
@@ -258,8 +348,28 @@
                                     Kursverwaltung
                                 </button>
                                 <button
+                                    onClick={() => setActiveTab('prices')}
+                                    className={`flex-1 py-4 px-6 font-medium transition whitespace-nowrap ${
+                                        activeTab === 'prices'
+                                            ? 'bg-green-700 text-white'
+                                            : 'bg-white text-gray-700 hover:bg-gray-100'
+                                    }`}
+                                >
+                                    Preise
+                                </button>
+                                <button
+                                    onClick={() => setActiveTab('qualifications')}
+                                    className={`flex-1 py-4 px-6 font-medium transition whitespace-nowrap ${
+                                        activeTab === 'qualifications'
+                                            ? 'bg-green-700 text-white'
+                                            : 'bg-white text-gray-700 hover:bg-gray-100'
+                                    }`}
+                                >
+                                    Qualifikationen
+                                </button>
+                                <button
                                     onClick={() => setActiveTab('reviews')}
-                                    className={`flex-1 py-4 px-6 font-medium transition ${
+                                    className={`flex-1 py-4 px-6 font-medium transition whitespace-nowrap ${
                                         activeTab === 'reviews'
                                             ? 'bg-green-700 text-white'
                                             : 'bg-white text-gray-700 hover:bg-gray-100'
@@ -405,6 +515,130 @@
                                             </tbody>
                                         </table>
                                     </div>
+                                </div>
+                            </>
+                        )}
+
+                        {/* Preisverwaltung */}
+                        {activeTab === 'prices' && (
+                            <div className="bg-white rounded-lg shadow-lg p-6">
+                                <h2 className="text-2xl font-bold text-green-800 mb-4">Kurspreise verwalten</h2>
+                                <p className="text-gray-600 mb-6">Bearbeiten Sie die Preise für jeden Kurs. Die Änderungen werden auf der Website angezeigt.</p>
+                                
+                                <div className="space-y-4 mb-6">
+                                    {coursePrices.map((course, index) => (
+                                        <div key={index} className="border border-gray-200 rounded-lg p-4">
+                                            <div className="grid md:grid-cols-3 gap-4">
+                                                <div>
+                                                    <label className="block text-gray-700 font-medium mb-2">Kursname</label>
+                                                    <input
+                                                        type="text"
+                                                        value={course.name}
+                                                        onChange={(e) => handleUpdatePrice(index, 'name', e.target.value)}
+                                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 bg-gray-50"
+                                                        disabled
+                                                    />
+                                                </div>
+                                                <div>
+                                                    <label className="block text-gray-700 font-medium mb-2">Preis</label>
+                                                    <input
+                                                        type="text"
+                                                        value={course.price}
+                                                        onChange={(e) => handleUpdatePrice(index, 'price', e.target.value)}
+                                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
+                                                        placeholder="z.B. 120,00 €"
+                                                    />
+                                                </div>
+                                                <div>
+                                                    <label className="block text-gray-700 font-medium mb-2">Zusatzinfo (optional)</label>
+                                                    <input
+                                                        type="text"
+                                                        value={course.note}
+                                                        onChange={(e) => handleUpdatePrice(index, 'note', e.target.value)}
+                                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
+                                                        placeholder="z.B. (bei Einzelunterricht 250,00 €)"
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+
+                                <button
+                                    onClick={handleSavePrices}
+                                    className="bg-green-700 hover:bg-green-800 text-white py-2 px-6 rounded-lg font-medium transition flex items-center gap-2"
+                                >
+                                    <Save />
+                                    Preise speichern
+                                </button>
+                            </div>
+                        )}
+
+                        {/* Qualifikationsverwaltung */}
+                        {activeTab === 'qualifications' && (
+                            <>
+                                {/* Neue Qualifikation hinzufügen */}
+                                <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
+                                    <h2 className="text-2xl font-bold text-green-800 mb-4">Neue Qualifikation hinzufügen</h2>
+                                    <div className="flex gap-4">
+                                        <input
+                                            type="text"
+                                            value={newQualification}
+                                            onChange={(e) => setNewQualification(e.target.value)}
+                                            onKeyPress={(e) => e.key === 'Enter' && handleAddQualification()}
+                                            className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
+                                            placeholder="z.B. Zertifizierter Waffenexperte"
+                                        />
+                                        <button
+                                            onClick={handleAddQualification}
+                                            className="bg-green-700 hover:bg-green-800 text-white py-2 px-6 rounded-lg font-medium transition flex items-center gap-2"
+                                        >
+                                            <Plus />
+                                            Hinzufügen
+                                        </button>
+                                    </div>
+                                </div>
+
+                                {/* Qualifikationsliste */}
+                                <div className="bg-white rounded-lg shadow-lg p-6">
+                                    <h2 className="text-2xl font-bold text-green-800 mb-4">Meine Qualifikationen</h2>
+                                    <p className="text-gray-600 mb-6">Diese werden auf der Website unter "Über mich" angezeigt.</p>
+                                    
+                                    <div className="space-y-3 mb-6">
+                                        {qualifications.map((qual, index) => (
+                                            <div key={index} className="flex items-center gap-3 p-3 border border-gray-200 rounded-lg bg-gray-50">
+                                                <svg className="h-5 w-5 text-green-600 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                                                </svg>
+                                                <input
+                                                    type="text"
+                                                    value={qual}
+                                                    onChange={(e) => handleUpdateQualification(index, e.target.value)}
+                                                    className="flex-1 px-3 py-1 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-green-600 bg-white"
+                                                />
+                                                <button
+                                                    onClick={() => handleDeleteQualification(index)}
+                                                    className="text-red-600 hover:text-red-800 transition flex-shrink-0"
+                                                >
+                                                    <Trash2 />
+                                                </button>
+                                            </div>
+                                        ))}
+                                    </div>
+
+                                    {qualifications.length === 0 && (
+                                        <p className="text-center text-gray-500 py-8">Noch keine Qualifikationen vorhanden.</p>
+                                    )}
+
+                                    {qualifications.length > 0 && (
+                                        <button
+                                            onClick={handleSaveQualifications}
+                                            className="bg-green-700 hover:bg-green-800 text-white py-2 px-6 rounded-lg font-medium transition flex items-center gap-2"
+                                        >
+                                            <Save />
+                                            Qualifikationen speichern
+                                        </button>
+                                    )}
                                 </div>
                             </>
                         )}
