@@ -6,6 +6,8 @@
     <title>Waffenrecht-Guck</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
     <link rel="shortcut icon" href="mache dieses logo kl.png" />
     <style>
         #lightboxModal img {
@@ -963,11 +965,83 @@
         </div>
     </footer>
     <!-- Scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<!-- 🔥 FIREBASE SDKs -->
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+
 <script>
-        // Sort courses by date
-        $(document).ready(function() {
-            // Sort table rows by date
+// ========================================
+// 🔥 FIREBASE KONFIGURATION & INITIALISIERUNG
+// ========================================
+const firebaseConfig = {
+    apiKey: "AIzaSyDdAXshQwiuw-3UUETJoynMpLVhpf7MDaA",
+    authDomain: "waffenrecht-guck.firebaseapp.com",
+    projectId: "waffenrecht-guck",
+    storageBucket: "waffenrecht-guck.firebasestorage.app",
+    messagingSenderId: "280006919738",
+    appId: "1:280006919738:web:ec829fb8ad0cba2dcb5703",
+    measurementId: "G-2NVQLD5S74"
+};
+
+// Firebase initialisieren
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
+// ========================================
+// 🔥 DATEN AUS FIREBASE LADEN
+// ========================================
+
+// Funktion zum Laden der Kursinformationen
+async function loadCourseInfoFromFirebase() {
+    try {
+        const infoSnapshot = await db.collection('courseInfo').doc('info').get();
+        if (infoSnapshot.exists) {
+            const info = infoSnapshot.data();
+            
+            const nextDateEl = document.getElementById('next-course-date');
+            const deadlineEl = document.getElementById('registration-deadline');
+            const durationEl = document.getElementById('course-duration');
+            
+            if (nextDateEl) nextDateEl.textContent = info.nextCourseDate;
+            if (deadlineEl) deadlineEl.textContent = info.registrationDeadline;
+            if (durationEl) durationEl.textContent = info.duration;
+        }
+    } catch (error) {
+        console.error('Fehler beim Laden der Kursinformationen:', error);
+    }
+}
+
+// Funktion zum Laden des Kursplans
+async function loadCoursePlanFromFirebase() {
+    try {
+        const coursesSnapshot = await db.collection('courses').doc('courseList').get();
+        if (coursesSnapshot.exists) {
+            const courses = coursesSnapshot.data().list || [];
+            const tbody = document.getElementById('course-tbody');
+            
+            if (!tbody) return;
+            
+            tbody.innerHTML = '';
+            
+            courses.forEach((course, index) => {
+                const row = document.createElement('tr');
+                if (index % 2 === 1) {
+                    row.className = 'bg-gray-50';
+                }
+                
+                row.innerHTML = `
+                    <td class="py-3 px-4 text-black">${course.type}</td>
+                    <td class="py-3 px-4 text-black">${course.date}</td>
+                    <td class="py-3 px-4 text-black font-medium">${course.deadline}</td>
+                    <td class="py-3 px-4 text-black">${course.spots}</td>
+                `;
+                
+                tbody.appendChild(row);
+            });
+            
+            // Sortiere Kurse nach Datum
             const rows = $('tbody tr').get();
             rows.sort(function(a, b) {
                 const dateA = new Date($(a).find('td:nth-child(2)').text().split('.').reverse().join('-'));
@@ -975,375 +1049,25 @@
                 return dateA - dateB;
             });
             $('tbody').empty().append(rows);
-
-            
-    </script>
-<script>
-        // Form submission handler
-        document.getElementById('contactForm').addEventListener('submit', async function(e) {
-    e.preventDefault();
-    
-    // Verstecke alte Nachrichten
-    document.getElementById('contactSuccess').classList.add('hidden');
-    document.getElementById('contactError').classList.add('hidden');
-    
-    // Hole die Formulardaten
-    const name = document.getElementById('name').value.trim();
-    const email = document.getElementById('email').value.trim();
-    const subject = document.getElementById('subject').value;
-    const message = document.getElementById('message').value.trim();
-    
-    // Validierung
-    if (!name || !email || !message) {
-        document.getElementById('contactError').classList.remove('hidden');
-        document.getElementById('contactError').querySelector('span').textContent = 
-            'Bitte füllen Sie alle Pflichtfelder aus!';
-        return;
-    }
-    
-    // Email-Validierung
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-        document.getElementById('contactError').classList.remove('hidden');
-        document.getElementById('contactError').querySelector('span').textContent = 
-            'Bitte geben Sie eine gültige E-Mail-Adresse ein!';
-        return;
-    }
-    
-    // Button während des Sendens deaktivieren
-    const submitBtn = document.getElementById('contactSubmitBtn');
-    const originalBtnText = submitBtn.innerHTML;
-    submitBtn.disabled = true;
-    submitBtn.innerHTML = `
-        <div class="flex items-center justify-center">
-            <svg class="animate-spin h-5 w-5 text-white mr-2" fill="none" viewBox="0 0 24 24">
-                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-            </svg>
-            Wird gesendet...
-        </div>
-    `;
-    
-    // Betreff in lesbaren Text umwandeln
-    const subjectTexts = {
-        'course': 'Kursanfrage',
-        'training': 'Training',
-        'other': 'Sonstiges'
-    };
-    
-    try {
-        // EmailJS Parameter
-        const templateParams = {
-            contact_name: name,
-            contact_email: email,
-            subject_text: subjectTexts[subject] || subject,
-            contact_message: message
-        };
-        
-        // DEBUG
-        console.log('=== KONTAKTFORMULAR WIRD GESENDET ===');
-        console.log('Parameter:', templateParams);
-        
-        // WICHTIG: Ersetze 'DEINE_CONTACT_TEMPLATE_ID' mit deiner Template ID
-        // Du kannst auch eine andere Service ID verwenden, wenn gewünscht
-        await emailjs.send('service_g8iwkyl', 'template_i1v4oik', templateParams);
-        
-        console.log('✅ Kontaktformular erfolgreich gesendet!');
-        
-        // Zeige Success-Nachricht
-        document.getElementById('contactSuccess').classList.remove('hidden');
-        
-        // Formular zurücksetzen
-        this.reset();
-        
-        // Success-Nachricht nach 8 Sekunden ausblenden
-        setTimeout(() => {
-            document.getElementById('contactSuccess').classList.add('hidden');
-        }, 8000);
-        
+        }
     } catch (error) {
-        // Fehlerbehandlung
-        console.error('❌ FEHLER beim Senden des Kontaktformulars:');
-        console.error('Error:', error);
-        console.error('Status:', error.status);
-        console.error('Text:', error.text);
-        
-        // Zeige Error-Nachricht
-        document.getElementById('contactError').classList.remove('hidden');
-        
-        // Error-Nachricht nach 10 Sekunden ausblenden
-        setTimeout(() => {
-            document.getElementById('contactError').classList.add('hidden');
-        }, 10000);
-        
-    } finally {
-        // Button wieder aktivieren
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = originalBtnText;
+        console.error('Fehler beim Laden des Kursplans:', error);
     }
-});
-
-        // Lightbox functionality
-        const images = ['Anschlag von vorn.JPG', 'Lehrbücher.JPG', 'Matthias LG Anschlag.JPG', 'Matthias LG.JPG', 'Matthias Montur und Gewehr.JPG', 'Matthias Wettkampf.JPG', 'Matthias Zielt.JPG', 'Matthias lächelt.JPG', 'Viele Schützen.JPG', 'alle Waffen gezoomt.JPG', 'anschlag rausgezoomt.JPG', 'ordenktliche Munition.JPG'];
-        let currentIndex = 0;
-
-        function openLightbox(imageSrc) {
-            currentIndex = images.indexOf(imageSrc);
-            document.getElementById('lightboxImage').src = imageSrc;
-            document.getElementById('lightboxModal').classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeLightbox() {
-            document.getElementById('lightboxModal').classList.add('hidden');
-            document.body.style.overflow = 'auto';
-        }
-
-        function prevImage() {
-            currentIndex = (currentIndex - 1 + images.length) % images.length;
-            document.getElementById('lightboxImage').src = images[currentIndex];
-        }
-
-        function nextImage() {
-            currentIndex = (currentIndex + 1) % images.length;
-            document.getElementById('lightboxImage').src = images[currentIndex];
-        }
-
-        // Keyboard navigation
-        document.addEventListener('keydown', function(e) {
-            if (!document.getElementById('lightboxModal').classList.contains('hidden')) {
-                if (e.key === 'Escape') {
-                    closeLightbox();
-                } else if (e.key === 'ArrowLeft') {
-                    prevImage();
-                } else if (e.key === 'ArrowRight') {
-                    nextImage();
-                }
-            }
-        });
-    </script>
-    <script>
-// Mobile Menu Toggle
-const menuToggle = document.getElementById('menu-toggle');
-const mobileMenu = document.getElementById('mobile-menu');
-
-menuToggle.addEventListener('click', function() {
-    mobileMenu.classList.toggle('hidden');
-});
-
-// Schließe das Menü automatisch, wenn auf einen Link geklickt wird
-const mobileLinks = mobileMenu.querySelectorAll('a');
-mobileLinks.forEach(link => {
-    link.addEventListener('click', function() {
-        mobileMenu.classList.add('hidden');
-    });
-});
-        // Funktion zum Laden der Kursinformationen
-function loadCourseInfo() {
-  try {
-    const savedInfo = localStorage.getItem('courseInfo');
-    if (savedInfo) {
-      const info = JSON.parse(savedInfo);
-      
-      // Aktualisiere die Informationen mit IDs
-      const nextDateEl = document.getElementById('next-course-date');
-      const deadlineEl = document.getElementById('registration-deadline');
-      const durationEl = document.getElementById('course-duration');
-      
-      if (nextDateEl) nextDateEl.textContent = info.nextCourseDate;
-      if (deadlineEl) deadlineEl.textContent = info.registrationDeadline;
-      if (durationEl) durationEl.textContent = info.duration;
-    }
-  } catch (error) {
-    console.error('Fehler beim Laden der Kursinformationen:', error);
-  }
 }
 
-// Funktion zum Laden des Kursplans
-function loadCoursePlan() {
-  try {
-    const savedCourses = localStorage.getItem('coursePlan');
-    if (savedCourses) {
-      const courses = JSON.parse(savedCourses);
-      const tbody = document.getElementById('course-tbody');
-      
-      if (!tbody) return;
-      
-      // Leere die Tabelle
-      tbody.innerHTML = '';
-      
-      // Füge alle Kurse hinzu
-      courses.forEach((course, index) => {
-        const row = document.createElement('tr');
-        if (index % 2 === 1) {
-          row.className = 'bg-gray-50';
-        }
-        
-        row.innerHTML = `
-          <td class="py-3 px-4 text-black">${course.type}</td>
-          <td class="py-3 px-4 text-black">${course.date}</td>
-          <td class="py-3 px-4 text-black font-medium">${course.deadline}</td>
-          <td class="py-3 px-4 text-black">${course.spots}</td>
-        `;
-        
-        tbody.appendChild(row);
-      });
-    }
-  } catch (error) {
-    console.error('Fehler beim Laden des Kursplans:', error);
-  }
-}
-
-// Lade die Daten beim Seitenaufruf
-document.addEventListener('DOMContentLoaded', function() {
-  loadCourseInfo();
-  loadCoursePlan();
-});
-
-// Optional: Aktualisiere alle 30 Sekunden
-setInterval(function() {
-  loadCourseInfo();
-  loadCoursePlan();
-}, 30000);
-        // EmailJS initialisieren
-        // WICHTIG: Ersetze 'DEIN_PUBLIC_KEY' mit deinem echten Public Key von EmailJS
-        emailjs.init('uKlv8jtgFA8GNcVIE');
-        
-        let currentCourse = '';
-        let currentDate = '';
-        
-        function openRegistration(courseName, courseDate) {
-            currentCourse = courseName;
-            currentDate = courseDate;
-            
-            // Setze Kursinformationen
-            document.getElementById('courseName').textContent = courseName;
-            document.getElementById('courseDate').textContent = courseDate;
-            
-            // Reset Form
-            document.getElementById('userName').value = '';
-            document.getElementById('userEmail').value = '';
-            document.getElementById('userPhone').value = '';
-            document.getElementById('userMessage').value = '';
-            
-            // Zeige Formular, verstecke Success Message
-            document.getElementById('registrationForm').classList.remove('hidden');
-            document.getElementById('successMessage').classList.add('hidden');
-            
-            // Zeige Modal
-            const modal = document.getElementById('registrationModal');
-            const backdrop = document.getElementById('modalBackdrop');
-            const content = document.getElementById('modalContent');
-            
-            modal.classList.remove('hidden');
-            backdrop.classList.add('backdrop-enter');
-            content.classList.add('modal-enter');
-            
-            // Verhindere Scrollen im Hintergrund
-            document.body.style.overflow = 'hidden';
-        }
-        
-        function closeRegistration() {
-            const modal = document.getElementById('registrationModal');
-            const backdrop = document.getElementById('modalBackdrop');
-            const content = document.getElementById('modalContent');
-            
-            // Entferne Enter-Animationen
-            backdrop.classList.remove('backdrop-enter');
-            content.classList.remove('modal-enter');
-            
-            // Füge Exit-Animationen hinzu
-            backdrop.classList.add('backdrop-exit');
-            content.classList.add('modal-exit');
-            
-            // Warte auf Animation, dann verstecke Modal
-            setTimeout(() => {
-                modal.classList.add('hidden');
-                backdrop.classList.remove('backdrop-exit');
-                content.classList.remove('modal-exit');
-                document.body.style.overflow = 'auto';
-            }, 300);
-        }
-        
-        async function submitRegistration() {
-            const name = document.getElementById('userName').value.trim();
-            const email = document.getElementById('userEmail').value.trim();
-            const phone = document.getElementById('userPhone').value.trim();
-            const message = document.getElementById('userMessage').value.trim();
-            
-            // Validierung
-            if (!name || !email) {
-                alert('Bitte füllen Sie Name und E-Mail aus!');
-                return;
-            }
-            
-            // Email-Validierung
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email)) {
-                alert('Bitte geben Sie eine gültige E-Mail-Adresse ein!');
-                return;
-            }
-            
-            // Button deaktivieren während des Sendens
-            const submitBtn = document.getElementById('submitBtn');
-            const originalText = submitBtn.innerHTML;
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = `
-                <svg class="animate-spin h-5 w-5 text-white mx-auto" fill="none" viewBox="0 0 24 24">
-                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                </svg>
-            `;
-            
-            try {
-                // EmailJS Parameter
-                // WICHTIG: Ersetze 'DEINE_SERVICE_ID' und 'DEIN_TEMPLATE_ID'
-                const templateParams = {
-                    course_name: currentCourse,
-                    course_date: currentDate,
-                    user_name: name,
-                    user_email: email,
-                    user_phone: phone || 'Nicht angegeben',
-                    user_message: message || 'Keine Anmerkungen'
-                };
-                
-                await emailjs.send('service_g8iwkyl', 'template_lrmi1le', templateParams);
-                
-                // Zeige Success Message
-                document.getElementById('registrationForm').classList.add('hidden');
-                document.getElementById('successMessage').classList.remove('hidden');
-                
-            } catch (error) {
-                console.error('Fehler beim Senden:', error);
-                alert('Es gab einen Fehler beim Senden Ihrer Anmeldung. Bitte versuchen Sie es später erneut.');
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = originalText;
-            }
-        }
-        
-        // ESC-Taste zum Schließen
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                const modal = document.getElementById('registrationModal');
-                if (!modal.classList.contains('hidden')) {
-                    closeRegistration();
-                }
-            }
-        });
-        function loadReviews() {
+// Funktion zum Laden der Bewertungen
+async function loadReviewsFromFirebase() {
     try {
-        const savedReviews = localStorage.getItem('customerReviews');
-        if (!savedReviews) return;
+        const reviewsSnapshot = await db.collection('reviews').doc('reviewList').get();
+        if (!reviewsSnapshot.exists) return;
         
-        const reviews = JSON.parse(savedReviews);
+        const reviews = reviewsSnapshot.data().list || [];
         const reviewsContainer = document.querySelector('#reviews .grid');
         
         if (!reviewsContainer) return;
         
-        // Leere den Container (außer dem "Mehr anzeigen" Button)
         reviewsContainer.innerHTML = '';
         
-        // Zeige die ersten 3 Bewertungen
         const visibleReviews = reviews.slice(0, 3);
         
         visibleReviews.forEach(review => {
@@ -1370,11 +1094,9 @@ setInterval(function() {
             reviewsContainer.innerHTML += reviewCard;
         });
         
-        // "Mehr anzeigen" Button-Funktionalität
         const showMoreBtn = document.getElementById('showMoreReviews');
         if (showMoreBtn && reviews.length > 3) {
             showMoreBtn.onclick = function() {
-                // Zeige alle Bewertungen
                 reviewsContainer.innerHTML = '';
                 
                 reviews.forEach(review => {
@@ -1401,11 +1123,9 @@ setInterval(function() {
                     reviewsContainer.innerHTML += reviewCard;
                 });
                 
-                // Verstecke den Button
                 showMoreBtn.style.display = 'none';
             };
         } else if (showMoreBtn && reviews.length <= 3) {
-            // Verstecke den Button, wenn es 3 oder weniger Bewertungen gibt
             showMoreBtn.style.display = 'none';
         }
         
@@ -1414,57 +1134,185 @@ setInterval(function() {
     }
 }
 
-// Lade Bewertungen beim Seitenaufruf
-document.addEventListener('DOMContentLoaded', function() {
-    loadReviews();
+// Funktion zum Laden der Qualifikationen
+async function loadQualificationsFromFirebase() {
+    try {
+        const qualSnapshot = await db.collection('qualifications').doc('qualList').get();
+        if (!qualSnapshot.exists) return;
+        
+        const qualifications = qualSnapshot.data().list || [];
+        
+        const qualList = document.querySelector('#home .space-y-3');
+        if (!qualList) return;
+        
+        qualList.innerHTML = '';
+        
+        qualifications.forEach(qual => {
+            const listItem = document.createElement('li');
+            listItem.className = 'flex items-start';
+            listItem.innerHTML = `
+                <svg class="h-5 w-5 text-green-600 mr-2 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                <span>${qual}</span>
+            `;
+            qualList.appendChild(listItem);
+        });
+        
+    } catch (error) {
+        console.error('Fehler beim Laden der Qualifikationen:', error);
+    }
+}
+
+// ========================================
+// 🚀 INITIALISIERUNG - Lade alle Daten
+// ========================================
+document.addEventListener('DOMContentLoaded', async function() {
+    console.log('🔥 Firebase wird initialisiert...');
+    
+    await loadCourseInfoFromFirebase();
+    await loadCoursePlanFromFirebase();
+    await loadReviewsFromFirebase();
+    await loadQualificationsFromFirebase();
+    
+    console.log('✅ Alle Daten aus Firebase geladen!');
 });
 
-// Optional: Aktualisiere Bewertungen alle 30 Sekunden
-setInterval(loadReviews, 30000);
-        // Klick außerhalb des Modals zum Schließen
-        document.getElementById('modalBackdrop').addEventListener('click', closeRegistration);
-// FLOHMARKT-ANMELDUNG FUNKTIONEN
+// Optional: Aktualisiere alle 30 Sekunden
+setInterval(async function() {
+    await loadCourseInfoFromFirebase();
+    await loadCoursePlanFromFirebase();
+    await loadReviewsFromFirebase();
+    await loadQualificationsFromFirebase();
+}, 30000);
 
-function openFlohmarktRegistration() {
-    // Reset Form
-    document.getElementById('flohmarktName').value = '';
-    document.getElementById('flohmarktEmail').value = '';
-    document.getElementById('flohmarktPhone').value = '';
-    document.getElementById('flohmarktStands').value = '';
-    document.getElementById('flohmarktItems').value = '';
-    document.getElementById('flohmarktMessage').value = '';
+// ========================================
+// 📧 EMAILJS INITIALISIERUNG
+// ========================================
+emailjs.init('uKlv8jtgFA8GNcVIE');
+
+// ========================================
+// 📧 KONTAKTFORMULAR
+// ========================================
+document.getElementById('contactForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
     
-    // Zeige Formular, verstecke Success Message
-    document.getElementById('flohmarktForm').classList.remove('hidden');
-    document.getElementById('flohmarktSuccess').classList.add('hidden');
+    document.getElementById('contactSuccess').classList.add('hidden');
+    document.getElementById('contactError').classList.add('hidden');
     
-    // Zeige Modal
-    const modal = document.getElementById('flohmarktModal');
-    const backdrop = document.getElementById('flohmarktBackdrop');
-    const content = document.getElementById('flohmarktContent');
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const subject = document.getElementById('subject').value;
+    const message = document.getElementById('message').value.trim();
+    
+    if (!name || !email || !message) {
+        document.getElementById('contactError').classList.remove('hidden');
+        document.getElementById('contactError').querySelector('span').textContent = 
+            'Bitte füllen Sie alle Pflichtfelder aus!';
+        return;
+    }
+    
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        document.getElementById('contactError').classList.remove('hidden');
+        document.getElementById('contactError').querySelector('span').textContent = 
+            'Bitte geben Sie eine gültige E-Mail-Adresse ein!';
+        return;
+    }
+    
+    const submitBtn = document.getElementById('contactSubmitBtn');
+    const originalBtnText = submitBtn.innerHTML;
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = `
+        <div class="flex items-center justify-center">
+            <svg class="animate-spin h-5 w-5 text-white mr-2" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            Wird gesendet...
+        </div>
+    `;
+    
+    const subjectTexts = {
+        'course': 'Kursanfrage',
+        'training': 'Training',
+        'other': 'Sonstiges'
+    };
+    
+    try {
+        const templateParams = {
+            contact_name: name,
+            contact_email: email,
+            subject_text: subjectTexts[subject] || subject,
+            contact_message: message
+        };
+        
+        await emailjs.send('service_g8iwkyl', 'template_i1v4oik', templateParams);
+        
+        document.getElementById('contactSuccess').classList.remove('hidden');
+        this.reset();
+        
+        setTimeout(() => {
+            document.getElementById('contactSuccess').classList.add('hidden');
+        }, 8000);
+        
+    } catch (error) {
+        console.error('❌ FEHLER beim Senden des Kontaktformulars:', error);
+        document.getElementById('contactError').classList.remove('hidden');
+        
+        setTimeout(() => {
+            document.getElementById('contactError').classList.add('hidden');
+        }, 10000);
+        
+    } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalBtnText;
+    }
+});
+
+// ========================================
+// 📧 KURSANMELDUNG
+// ========================================
+let currentCourse = '';
+let currentDate = '';
+
+function openRegistration(courseName, courseDate) {
+    currentCourse = courseName;
+    currentDate = courseDate;
+    
+    document.getElementById('courseName').textContent = courseName;
+    document.getElementById('courseDate').textContent = courseDate;
+    
+    document.getElementById('userName').value = '';
+    document.getElementById('userEmail').value = '';
+    document.getElementById('userPhone').value = '';
+    document.getElementById('userMessage').value = '';
+    
+    document.getElementById('registrationForm').classList.remove('hidden');
+    document.getElementById('successMessage').classList.add('hidden');
+    
+    const modal = document.getElementById('registrationModal');
+    const backdrop = document.getElementById('modalBackdrop');
+    const content = document.getElementById('modalContent');
     
     modal.classList.remove('hidden');
     backdrop.classList.add('backdrop-enter');
     content.classList.add('modal-enter');
     
-    // Verhindere Scrollen im Hintergrund
     document.body.style.overflow = 'hidden';
 }
 
-function closeFlohmarktRegistration() {
-    const modal = document.getElementById('flohmarktModal');
-    const backdrop = document.getElementById('flohmarktBackdrop');
-    const content = document.getElementById('flohmarktContent');
+function closeRegistration() {
+    const modal = document.getElementById('registrationModal');
+    const backdrop = document.getElementById('modalBackdrop');
+    const content = document.getElementById('modalContent');
     
-    // Entferne Enter-Animationen
     backdrop.classList.remove('backdrop-enter');
     content.classList.remove('modal-enter');
     
-    // Füge Exit-Animationen hinzu
     backdrop.classList.add('backdrop-exit');
     content.classList.add('modal-exit');
     
-    // Warte auf Animation, dann verstecke Modal
     setTimeout(() => {
         modal.classList.add('hidden');
         backdrop.classList.remove('backdrop-exit');
@@ -1473,29 +1321,24 @@ function closeFlohmarktRegistration() {
     }, 300);
 }
 
-async function submitFlohmarktRegistration() {
-    const name = document.getElementById('flohmarktName').value.trim();
-    const email = document.getElementById('flohmarktEmail').value.trim();
-    const phone = document.getElementById('flohmarktPhone').value.trim();
-    const stands = document.getElementById('flohmarktStands').value;
-    const items = document.getElementById('flohmarktItems').value.trim();
-    const message = document.getElementById('flohmarktMessage').value.trim();
+async function submitRegistration() {
+    const name = document.getElementById('userName').value.trim();
+    const email = document.getElementById('userEmail').value.trim();
+    const phone = document.getElementById('userPhone').value.trim();
+    const message = document.getElementById('userMessage').value.trim();
     
-    // Validierung
-    if (!name || !email || !phone || !stands) {
-        alert('Bitte füllen Sie alle Pflichtfelder aus!');
+    if (!name || !email) {
+        alert('Bitte füllen Sie Name und E-Mail aus!');
         return;
     }
     
-    // Email-Validierung
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
         alert('Bitte geben Sie eine gültige E-Mail-Adresse ein!');
         return;
     }
     
-    // Button deaktivieren während des Sendens
-    const submitBtn = document.getElementById('flohmarktSubmitBtn');
+    const submitBtn = document.getElementById('submitBtn');
     const originalText = submitBtn.innerHTML;
     submitBtn.disabled = true;
     submitBtn.innerHTML = `
@@ -1506,70 +1349,114 @@ async function submitFlohmarktRegistration() {
     `;
     
     try {
-        // EmailJS Parameter
-        // WICHTIG: Erstelle ein neues Template in EmailJS und setze die Template-ID hier ein
         const templateParams = {
-            vendor_name: name,
-            vendor_email: email,
-            vendor_phone: phone,
-            stand_count: stands,
-            item_types: items || 'Nicht angegeben',
-            vendor_message: message || 'Keine zusätzlichen Anmerkungen'
+            course_name: currentCourse,
+            course_date: currentDate,
+            user_name: name,
+            user_email: email,
+            user_phone: phone || 'Nicht angegeben',
+            user_message: message || 'Keine Anmerkungen'
         };
         
-        console.log('=== FLOHMARKT-ANMELDUNG WIRD GESENDET ===');
-        console.log('Parameter:', templateParams);
+        await emailjs.send('service_g8iwkyl', 'template_lrmi1le', templateParams);
         
-        // WICHTIG: Ersetze 'DEINE_FLOHMARKT_TEMPLATE_ID' mit der echten Template-ID
-        await emailjs.send('service_g8iwkyl', 'DEINE_FLOHMARKT_TEMPLATE_ID', templateParams);
-        
-        console.log('✅ Flohmarkt-Anmeldung erfolgreich gesendet!');
-        
-        // Zeige Success Message
-        document.getElementById('flohmarktForm').classList.add('hidden');
-        document.getElementById('flohmarktSuccess').classList.remove('hidden');
+        document.getElementById('registrationForm').classList.add('hidden');
+        document.getElementById('successMessage').classList.remove('hidden');
         
     } catch (error) {
-        console.error('❌ FEHLER beim Senden der Flohmarkt-Anmeldung:');
-        console.error('Error:', error);
-        console.error('Status:', error.status);
-        console.error('Text:', error.text);
-        
-        alert('Es gab einen Fehler beim Senden Ihrer Anmeldung. Bitte versuchen Sie es später erneut oder kontaktieren Sie uns direkt.');
-        
+        console.error('Fehler beim Senden:', error);
+        alert('Es gab einen Fehler beim Senden Ihrer Anmeldung. Bitte versuchen Sie es später erneut.');
         submitBtn.disabled = false;
         submitBtn.innerHTML = originalText;
     }
 }
 
-// ESC-Taste zum Schließen (für Flohmarkt-Modal)
+// ESC-Taste zum Schließen
 document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') {
-        const modal = document.getElementById('flohmarktModal');
-        if (modal && !modal.classList.contains('hidden')) {
-            closeFlohmarktRegistration();
+        const modal = document.getElementById('registrationModal');
+        if (!modal.classList.contains('hidden')) {
+            closeRegistration();
+        }
+        
+        if (!document.getElementById('lightboxModal').classList.contains('hidden')) {
+            closeLightbox();
         }
     }
 });
 
 // Klick außerhalb des Modals zum Schließen
-document.getElementById('flohmarktBackdrop').addEventListener('click', closeFlohmarktRegistration);
+document.getElementById('modalBackdrop').addEventListener('click', closeRegistration);
 
-</script>
-    <script>
+// ========================================
+// 🖼️ LIGHTBOX (GALERIE)
+// ========================================
+const images = ['Anschlag von vorn.JPG', 'Lehrbücher.JPG', 'Matthias LG Anschlag.JPG', 'Matthias LG.JPG', 'Matthias Montur und Gewehr.JPG', 'Matthias Wettkampf.JPG', 'Matthias Zielt.JPG', 'Matthias lächelt.JPG', 'Viele Schützen.JPG', 'alle Waffen gezoomt.JPG', 'anschlag rausgezoomt.JPG', 'ordenktliche Munition.JPG'];
+let currentIndex = 0;
+
+function openLightbox(imageSrc) {
+    currentIndex = images.indexOf(imageSrc);
+    document.getElementById('lightboxImage').src = imageSrc;
+    document.getElementById('lightboxModal').classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+    document.getElementById('lightboxModal').classList.add('hidden');
+    document.body.style.overflow = 'auto';
+}
+
+function prevImage() {
+    currentIndex = (currentIndex - 1 + images.length) % images.length;
+    document.getElementById('lightboxImage').src = images[currentIndex];
+}
+
+function nextImage() {
+    currentIndex = (currentIndex + 1) % images.length;
+    document.getElementById('lightboxImage').src = images[currentIndex];
+}
+
+// Keyboard navigation
+document.addEventListener('keydown', function(e) {
+    if (!document.getElementById('lightboxModal').classList.contains('hidden')) {
+        if (e.key === 'ArrowLeft') {
+            prevImage();
+        } else if (e.key === 'ArrowRight') {
+            nextImage();
+        }
+    }
+});
+
+// ========================================
+// 📱 MOBILE MENU
+// ========================================
+const menuToggle = document.getElementById('menu-toggle');
+const mobileMenu = document.getElementById('mobile-menu');
+
+menuToggle.addEventListener('click', function() {
+    mobileMenu.classList.toggle('hidden');
+});
+
+const mobileLinks = mobileMenu.querySelectorAll('a');
+mobileLinks.forEach(link => {
+    link.addEventListener('click', function() {
+        mobileMenu.classList.add('hidden');
+    });
+});
+
+// ========================================
+// ✨ KONTAKT HIGHLIGHT EFFEKT
+// ========================================
 function highlightContact(event) {
     event.preventDefault();
     
-    // Scrolle zur Contact Section
     const contactSection = document.getElementById('contact');
     contactSection.scrollIntoView({ behavior: 'smooth' });
     
-    // Leuchteffekt
     setTimeout(() => {
         contactSection.style.transition = 'box-shadow 0.3s ease';
         contactSection.style.boxShadow = '0 0 30px 10px rgba(34, 197, 94, 0.6)';
         
-        // Entferne den Effekt nach kurzer Zeit
         setTimeout(() => {
             contactSection.style.boxShadow = 'none';
         }, 800);
