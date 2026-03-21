@@ -281,14 +281,20 @@
             // 💰 PREISE VERWALTEN
             // ========================================
             const handleUpdatePrice = (index, field, value) => {
-                const updatedPrices = [...coursePrices];
-                updatedPrices[index][field] = value;
-                setCoursePrices(updatedPrices);
-            };
+             const updatedPrices = [...coursePrices];
+              // Richtig: Ein komplett neues Objekt für den geänderten Eintrag erstellen
+              updatedPrices[index] = { ...updatedPrices[index], [field]: value };
+              setCoursePrices(updatedPrices);
+            }; 
 
             const handleSavePrices = async () => {
-                await db.collection('prices').doc('priceList').set({ list: coursePrices });
-                showSaveMessage('Preise gespeichert!');
+             try {
+               await db.collection('prices').doc('priceList').set({ list: coursePrices });
+               showSaveMessage('Preise gespeichert!');
+               } catch (error) {
+                  console.error("Fehler beim Speichern der Preise:", error);
+                  alert("Fehler beim Speichern! Schau in die Entwicklerkonsole (F12).");
+               }
             };
 
             // ========================================
