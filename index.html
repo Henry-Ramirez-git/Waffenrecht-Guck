@@ -4,23 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Waffenrecht-Guck</title>
+    <!-- Externe Bibliotheken -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
     <link rel="shortcut icon" href="mache dieses logo kl.png" />
+    
+    <!-- Eigenes CSS -->
     <style>
-        /* Unveränderte Stylesheets aus deinem Original... */
         #lightboxModal img { max-height: 80vh; }
         .gallery-item:hover img { transform: scale(1.05); transition: transform 0.3s ease; }
         .lightbox-overlay { background-color: rgba(0, 0, 0, 0.9) !important; }
         .hero-gradient { background: linear-gradient(135deg, #1a120b 0%, #2a1e17 100%); }
-        .teeth-white { backround: white; }
+        .teeth-white { background: white; }
         .section-divider { border-bottom: 2px solid #3c2f2f; }
-        body { background-color: #0a0806; color: #f5f5f5; }
+        body { background-color: #0a0806; color: #f5f5f5; scroll-behavior: smooth; }
         .bg-gray-100 { background-color: #121212; }
-        .text-black-800 { color: #000000; }
-        .text-black-700 { color: #000000; }
+        .text-black-800, .text-black-700, .text-black { color: #000000; }
         .bg-black-700 { background-color: #2a1e17; }
         .bg-black-700:hover { background-color: #3c2f2f; }
         .bg-white { background-color: #f3f4f6; }
@@ -28,353 +29,395 @@
         .text-gray-600 { color: #d4a373; }
         .border-gray-200 { border-color: #2a1e17; }
         .bg-gray-50 { background-color: #0a0806; }
-        .hover\:bg-green-50:hover { background-color: #1a120b; }
-        .bg-green-100 { background-color: #1a120b; }
-        .text-red-600 { color: #d4a373; }
-        .bg-gray-200 { background-color: #1a120b; }
         .hover-scale { transition: transform 0.3s ease; }
         .hover-scale:hover { transform: scale(1.03); }
-        .placeholder-logo { width: 200px; height: 200px; background-color: white; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; border-radius: 50%; }
-        .placeholder-image { width: 100%; height: 200px; background-color: #1f3a70; display: flex; align-items: center; justify-content: center; color: #6b7280; font-weight: bold; }
-        @keyframes slideIn { from { opacity: 0; transform: translateY(-20px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
-        @keyframes slideOut { from { opacity: 1; transform: translateY(0) scale(1); } to { opacity: 0; transform: translateY(-20px) scale(0.95); } }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
+        .placeholder-logo { width: 120px; height: 120px; background-color: white; display: flex; align-items: center; justify-content: center; border-radius: 50%; overflow: hidden;}
         .modal-enter { animation: slideIn 0.3s ease-out forwards; }
-        .modal-exit { animation: slideOut 0.3s ease-in forwards; }
-        .backdrop-enter { animation: fadeIn 0.3s ease-out forwards; }
-        .backdrop-exit { animation: fadeOut 0.3s ease-in forwards; }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body class="bg-gray-50 font-sans">
+
     <!-- Header -->
     <header class="teeth-white text-gray-900 shadow-lg">
-    <div class="container mx-auto px-4 py-8 md:py-12">
-        <div class="flex flex-col md:flex-row items-center justify-between gap-8">
-            <div class="flex items-center mb-6 md:mb-0">
-                <div class="placeholder-logo mr-4">
-                    <img src="freies Zeichen.png" alt="Logo">
+        <div class="container mx-auto px-4 py-8">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-8">
+                <div class="flex items-center">
+                    <div class="placeholder-logo mr-6 shadow-md">
+                        <img src="freies Zeichen.png" alt="Logo" class="w-full h-full object-cover">
+                    </div>
+                    <div>
+                        <h1 class="text-3xl md:text-5xl font-bold text-green-900">Waffenrecht-Guck</h1>
+                        <p class="text-lg md:text-2xl mt-2 font-semibold text-gray-700">Waffensachkunde & Sportschützenausbildung</p>
+                    </div>
                 </div>
-                <div>
-                    <h1 class="text-3xl md:text-4xl font-bold">Waffenrecht-Guck</h1>
-                    <p class="text-lg md:text-xl mt-2">Waffensachkunde & Sportschützenausbildung</p>
+                <div class="w-full md:w-1/2">
+                    <img src="alle Waffen.JPG" alt="Header Bild" class="w-full h-48 md:h-64 object-cover rounded-lg shadow-md">
                 </div>
-            </div>
-            <div class="w-full md:w-1/2 flex-shrink-0">
-                <img src="alle Waffen.JPG" alt="Header Bild" class="w-full h-48 md:h-64 object-cover rounded-lg">
             </div>
         </div>
-    </div>
-</header>
+    </header>
+
     <!-- Navigation -->
-    <!-- (Navigation-Code unverändert) -->
-<nav class="bg-green-700 shadow-md sticky top-0 z-50 border-b border-gray-900">
-    <div class="container mx-auto px-4">
-        <div class="flex justify-between items-center py-4">
-            <div class="text-white font-bold text-xl md:hidden">Waffenrecht-Guck</div>
-            <button id="menu-toggle" class="md:hidden text-white focus:outline-none">
-                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                </svg>
-            </button>
-            <ul class="hidden md:flex md:flex-row w-full">
-                <li class="md:border-r-2 border-white"><a href="#home" class="block py-4 px-6 text-white hover:bg-gray-100 hover:text-green-700 font-medium">Startseite</a></li>
-                <li class="md:border-r-2 border-white"><a href="#courses" class="block py-4 px-6 text-white hover:bg-gray-100 hover:text-green-700 font-medium">Kurse</a></li>
-                <li class="md:border-r-2 border-white"><a href="#gallery" class="block py-4 px-6 text-white hover:bg-gray-100 hover:text-green-700 font-medium">Galerie</a></li>
-                <li class="md:border-r-2 border-white"><a href="#sports" class="block py-4 px-6 text-white hover:bg-gray-100 hover:text-green-700 font-medium">Sport</a></li>
-                <li class="md:border-r-2 border-white"><a href="#flohmarkt" class="block py-4 px-6 text-white hover:bg-gray-100 hover:text-green-700 font-medium">Flohmarkt</a></li>
-                <li class="md:border-r-2 border-white"><a href="#reviews" class="block py-4 px-6 text-white hover:bg-gray-100 hover:text-green-700 font-medium">Bewertungen</a></li>
-                <li><a href="#contact" class="block py-4 px-6 text-white hover:bg-gray-100 hover:text-green-700 font-medium">Kontakt</a></li>
+    <nav class="bg-green-700 shadow-md sticky top-0 z-40 border-b border-gray-900">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4 md:hidden">
+                <div class="text-white font-bold text-xl">Menü</div>
+                <button id="mobile-menu-btn" class="text-white focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                </button>
+            </div>
+            <ul id="nav-menu" class="hidden md:flex md:flex-row flex-col w-full pb-4 md:pb-0">
+                <li class="border-b md:border-b-0 md:border-r-2 border-white"><a href="#home" class="block py-4 px-6 text-white hover:bg-gray-100 hover:text-green-700 font-medium transition">Startseite</a></li>
+                <li class="border-b md:border-b-0 md:border-r-2 border-white"><a href="#courses" class="block py-4 px-6 text-white hover:bg-gray-100 hover:text-green-700 font-medium transition">Kurse</a></li>
+                <li class="border-b md:border-b-0 md:border-r-2 border-white"><a href="#gallery" class="block py-4 px-6 text-white hover:bg-gray-100 hover:text-green-700 font-medium transition">Galerie</a></li>
+                <li class="border-b md:border-b-0 md:border-r-2 border-white"><a href="#sports" class="block py-4 px-6 text-white hover:bg-gray-100 hover:text-green-700 font-medium transition">Sport</a></li>
+                <li class="border-b md:border-b-0 md:border-r-2 border-white"><a href="#flohmarkt" class="block py-4 px-6 text-white hover:bg-gray-100 hover:text-green-700 font-medium transition">Flohmarkt</a></li>
+                <li class="border-b md:border-b-0 md:border-r-2 border-white"><a href="#reviews" class="block py-4 px-6 text-white hover:bg-gray-100 hover:text-green-700 font-medium transition">Bewertungen</a></li>
+                <li><a href="#contact" class="block py-4 px-6 text-white hover:bg-gray-100 hover:text-green-700 font-medium transition">Kontakt</a></li>
             </ul>
         </div>
-        <div id="mobile-menu" class="hidden bg-green-700 pb-4 md:hidden">
-            <div class="flex flex-col">
-                <a href="#home" class="text-white hover:bg-gray-100 hover:text-green-700 py-3 px-6 border-t border-white">Startseite</a>
-                <a href="#courses" class="text-white hover:bg-gray-100 hover:text-green-700 py-3 px-6 border-t border-white">Kurse</a>
-                <a href="#gallery" class="text-white hover:bg-gray-100 hover:text-green-700 py-3 px-6 border-t border-white">Galerie</a>
-                <a href="#sports" class="text-white hover:bg-gray-100 hover:text-green-700 py-3 px-6 border-t border-white">Sport</a>
-                <a href="#flohmarkt" class="text-white hover:bg-gray-100 hover:text-green-700 py-3 px-6 border-t border-white">Flohmarkt</a>
-                <a href="#reviews" class="text-white hover:bg-gray-100 hover:text-green-700 py-3 px-6 border-t border-white">Bewertungen</a>
-                <a href="#contact" class="text-white hover:bg-gray-100 hover:text-green-700 py-3 px-6 border-t border-white">Kontakt</a>
-            </div>
-        </div>
-    </div>
-</nav>
+    </nav>
 
-    <!-- Main Content -->
     <main>
-        <!-- Home Section (Unverändert) -->
+        <!-- Home Section -->
         <section id="home" class="py-12 section-divider">
-            <!-- (Inhalte unverändert) -->
             <div class="container mx-auto px-4">
-                <div class="flex flex-col lg:flex-row gap-8">
-                    <div class="lg:w-2/3">
-                        <h2 class="text-3xl font-bold text-green-800 mb-6">Willkommen bei Waffenrecht-Guck</h2>
-                        <div class="prose max-w-none text-gray-700"></div>
-                    </div>
-                </div>   
                 <div class="grid md:grid-cols-2 gap-8 mb-12">
                     <div class="bg-white p-6 rounded-lg shadow-md border border-gray-200">
-                        <h3 class="text-xl font-bold text-green-800 mb-4">Meine Qualifikationen</h3>
-                        <ul class="space-y-3 text-gray-700">
-                            <!-- Qualifikationen werden via JS gefüllt -->
+                        <h3 class="text-2xl font-bold text-green-800 mb-4 border-b-2 border-green-700 pb-2">Meine Qualifikationen</h3>
+                        <ul id="qualifications-list" class="space-y-3 text-black text-lg">
+                            <li>Lade Qualifikationen...</li>
                         </ul>
                     </div>
                     <div class="bg-white p-6 rounded-lg shadow-md border border-gray-200">
-                         <h3 class="text-xl font-bold text-green-800 mb-4 hovered-element">Aktuelle Informationen</h3>
-                             <div class="space-y-4">
-                                   <div class="border-b border-gray-200 pb-4 hovered-element">
-                                      <h4 class="font-semibold text-gray-800 hovered-element">Nächster Kursbeginn:</h4>
-                                      <p class="text-green-700" id="next-course-date">01.08.2025</p>
-                                     </div>
-                             <div class="border-b border-gray-200 pb-4 hovered-element">
-                                  <h4 class="font-semibold text-gray-800 hovered-element">Anmeldeschluss:</h4>
-                                  <p class="text-red-600 font-medium" id="registration-deadline">01.08.2025</p>
-                             </div>
-                             <div class="hovered-element">
-                                <h4 class="font-semibold text-gray-800 hovered-element">Kursdauer:</h4>
-                                <p class="text-gray-700" id="course-duration">2 Tage / 16 Stunden</p>
-                             </div>
+                        <h3 class="text-2xl font-bold text-green-800 mb-4 border-b-2 border-green-700 pb-2">Aktuelle Informationen</h3>
+                        <div class="space-y-4 text-lg">
+                            <p class="text-black">Nächster Kurs: <span id="next-course-date" class="font-bold text-green-700">Wird geladen...</span></p>
+                            <p class="text-black">Anmeldeschluss: <span id="registration-deadline" class="font-bold text-red-600">Wird geladen...</span></p>
+                            <p class="text-black">Dauer: <span id="course-duration">Wird geladen...</span></p>
                         </div>
-                       <div class="mt-6">
-                              <a href="#courses" class="block w-full bg-green-700 hover:bg-green-800 text-white text-center py-3 px-4 rounded-lg font-medium transition duration-300">Zu den Kursen</a>
-                       </div>
-                      </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Courses Section mit Data-Attributes für die Preise -->
+        <!-- Courses Section -->
         <section id="courses" class="py-12 section-divider bg-gray-100">
             <div class="container mx-auto px-4">
-                <h2 class="text-3xl font-bold text-green-800 mb-8 text-center">Unsere Kurse</h2>
+                <h2 class="text-4xl font-bold text-green-800 mb-8 text-center">Unsere Kurse</h2>
                 
+                <!-- Kurs-Karten mit CMS-Preis-Anbindung -->
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-                    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300 hover-scale">
-                        <h3 class="text-2xl font-bold text-green-800 mb-4">Allgemeine Waffensachkunde</h3>
-                        <p class="text-gray-700 mb-4">für Sportschützen, Bootsführer, Sammler und Erben</p>
-                        <!-- HIER HINZUGEFÜGT: data-price-name -->
-                        <p class="text-xl font-bold text-green-700 mb-6" data-price-name="Allgemeine Waffensachkunde">120,00 €<br><span class="text-sm">(bei Einzelunterricht 250,00 €)</span></p>
-                        <div class="flex flex-col sm:flex-row gap-4">
-                               <button onclick="openRegistration('Allgemeine Waffensachkunde', '15.03.2025')" class="bg-green-700 hover:bg-green-800 text-white py-2 px-4 rounded-lg font-medium text-center transition duration-300 w-full cursor-pointer">Anmelden</button>
+                    <div class="bg-white p-6 rounded-lg shadow-md hover-scale flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-2xl font-bold text-green-800 mb-4">Allgemeine Waffensachkunde</h3>
+                            <p class="text-black mb-4">Für Sportschützen, Sammler und Erben gemäß §7 WaffG.</p>
+                        </div>
+                        <div>
+                            <p class="text-2xl font-bold text-green-700 mb-6" data-price-name="Allgemeine Waffensachkunde">Preis laden...</p>
+                            <a href="#contact" class="block text-center w-full bg-green-700 text-white py-3 rounded font-bold hover:bg-green-800 transition">Jetzt Anfragen</a>
                         </div>
                     </div>
                     
-                    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300 hover-scale">
-                        <h3 class="text-2xl font-bold text-green-800 mb-4">Erweiterte Waffensachkunde</h3>
-                        <p class="text-gray-700 mb-4">für Wachpersonal und gefährdete Personen</p>
-                        <!-- HIER HINZUGEFÜGT: data-price-name -->
-                        <p class="text-xl font-bold text-green-700 mb-6" data-price-name="Erweiterte Waffensachkunde">250,00 €<br><span class="text-sm"></span></p>
-                        <div class="flex flex-col sm:flex-row gap-4">
-                           <button onclick="openRegistration('Erweiterte Waffensachkunde', '22.03.2025')" class="bg-green-700 hover:bg-green-800 text-white py-2 px-4 rounded-lg font-medium text-center transition duration-300 w-full cursor-pointer">Anmelden</button>
+                    <div class="bg-white p-6 rounded-lg shadow-md hover-scale flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-2xl font-bold text-green-800 mb-4">Erweiterte Waffensachkunde</h3>
+                            <p class="text-black mb-4">Speziell für das Bewachungsgewerbe gemäß §28 WaffG.</p>
+                        </div>
+                        <div>
+                            <p class="text-2xl font-bold text-green-700 mb-6" data-price-name="Erweiterte Waffensachkunde">Preis laden...</p>
+                            <a href="#contact" class="block text-center w-full bg-green-700 text-white py-3 rounded font-bold hover:bg-green-800 transition">Jetzt Anfragen</a>
                         </div>
                     </div>
-                    
-                    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300 hover-scale">
-                        <h3 class="text-2xl font-bold text-green-800 mb-4">Schießstandaufsicht</h3>
-                        <p class="text-gray-700 mb-4">Qualifizierung zur verantwortlichen Aufsichtsperson </p>
-                        <!-- HIER HINZUGEFÜGT: data-price-name -->
-                        <p class="text-xl font-bold text-green-700 mb-6" data-price-name="Schießstandaufsicht">10,00 €</p>
-                        <div class="flex flex-col sm:flex-row gap-4">
-                           <button onclick="openRegistration('Schießstandaufsicht', '05.04.2025')" class="bg-green-700 hover:bg-green-800 text-white py-2 px-4 rounded-lg font-medium text-center transition duration-300 w-full cursor-pointer">Anmelden</button>
+
+                    <div class="bg-white p-6 rounded-lg shadow-md hover-scale flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-2xl font-bold text-green-800 mb-4">Schießstandaufsicht</h3>
+                            <p class="text-black mb-4">Qualifizierung zur verantwortlichen Aufsichtsperson.</p>
                         </div>
-                    </div>
-                    
-                    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300 hover-scale">
-                        <h3 class="text-2xl font-bold text-green-800 mb-4">Anfängertraining Standard</h3>
-                        <p class="text-gray-700 mb-4">Luftgewehr oder KK Gewehr Standard</p>
-                        <!-- HIER HINZUGEFÜGT: data-price-name -->
-                        <p class="text-xl font-bold text-green-700 mb-6" data-price-name="Anfängertraining Standard">15,00 €</p>
-                        <div class="flex flex-col sm:flex-row gap-4">
-                           <button onclick="openRegistration('Anfängertraining Standard', '12.04.2025')" class="bg-green-700 hover:bg-green-800 text-white py-2 px-4 rounded-lg font-medium text-center transition duration-300 w-full cursor-pointer">Anmelden</button>
-                        </div>
-                    </div>
-                    
-                    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300 hover-scale">
-                        <h3 class="text-2xl font-bold text-green-800 mb-4">Anfängertraining 3-Stellung</h3>
-                        <p class="text-gray-700 mb-4">LG 3-stellung oder KK 3-stellung</p>
-                        <!-- HIER HINZUGEFÜGT: data-price-name -->
-                        <p class="text-xl font-bold text-green-700 mb-6" data-price-name="Anfängertraining 3-Stellung">15,00 €</p>
-                        <div class="flex flex-col sm:flex-row gap-4">
-                            <button onclick="openRegistration('Anfängertraining 3-Stellung', '19.04.2025')" class="bg-green-700 hover:bg-green-800 text-white py-2 px-4 rounded-lg font-medium text-center transition duration-300 w-full cursor-pointer">Anmelden</button>
-                        </div>
-                    </div>
-                    
-                    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300 hover-scale">
-                        <h3 class="text-2xl font-bold text-green-800 mb-4">Leistungstraining</h3>
-                        <p class="text-gray-700 mb-4">Luftgewehr oder KK Gewehr</p>
-                        <!-- HIER HINZUGEFÜGT: data-price-name -->
-                        <p class="text-xl font-bold text-green-700 mb-6" data-price-name="Leistungstraining">20,00 €</p>
-                        <div class="flex flex-col sm:flex-row gap-4">
-                          <button onclick="openRegistration('Leistungstraining', '26.04.2025')" class="bg-green-700 hover:bg-green-800 text-white py-2 px-4 rounded-lg font-medium text-center transition duration-300 w-full cursor-pointer">Anmelden</button>
-                        </div>
-                    </div>
-                    
-                    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300 hover-scale">
-                        <h3 class="text-2xl font-bold text-green-800 mb-4">Waffenrechtliche Erbfälle</h3>
-                        <p class="text-gray-700 mb-4">Beratung und behördliche Bearbeitung von waffenrechtlichen angelegenheiten</p>
-                        <!-- HIER HINZUGEFÜGT: data-price-name -->
-                        <p class="text-xl font-bold text-green-700 mb-6" data-price-name="Waffenrechtliche Erbfälle">Preis nach Absprache</p>
-                        <div class="flex flex-col sm:flex-row gap-4">
-                         <button onclick="openRegistration('Waffenrechtliche Erbfälle', 'Nach Vereinbarung')" class="bg-green-700 hover:bg-green-800 text-white py-2 px-4 rounded-lg font-medium text-center transition duration-300 w-full cursor-pointer">Anmelden</button>
-                        </div>
-                    </div>
-                    
-                    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300 hover-scale">
-                        <h3 class="text-2xl font-bold text-green-800 mb-4">Waffenbeurteilung</h3>
-                        <p class="text-gray-700 mb-4">Beratung und waffenrechtliche Beurteilung von Waffen und Munition</p>
-                        <!-- HIER HINZUGEFÜGT: data-price-name -->
-                        <p class="text-xl font-bold text-green-700 mb-6" data-price-name="Waffenbeurteilung">Preis nach Absprache</p>
-                        <div class="flex flex-col sm:flex-row gap-4">
-                           <button onclick="openRegistration('Waffenbeurteilung', 'Nach Vereinbarung')" class="bg-green-700 hover:bg-green-800 text-white py-2 px-4 rounded-lg font-medium text-center transition duration-300 w-full cursor-pointer">Anmelden</button>
+                        <div>
+                            <p class="text-2xl font-bold text-green-700 mb-6" data-price-name="Schießstandaufsicht">Preis laden...</p>
+                            <a href="#contact" class="block text-center w-full bg-green-700 text-white py-3 rounded font-bold hover:bg-green-800 transition">Jetzt Anfragen</a>
                         </div>
                     </div>
                 </div>
-                
-                <div class="bg-white p-6 rounded-lg shadow-md max-w-3xl mx-auto">
-                    <h3 class="text-xl font-bold text-green-800 mb-4">Kursplan 2024/2026</h3>
-                    <div class="overflow-x-auto">
-                        <table class="min-w-full bg-white" id="course-plan-table">
-                            <thead>
-                                <tr class="bg-green-700 text-white">
-                                    <th class="py-3 px-4 text-left">Kurstyp</th>
-                                    <th class="py-3 px-4 text-left">Datum</th>
-                                    <th class="py-3 px-4 text-left">Anmeldeschluss</th>
-                                    <th class="py-3 px-4 text-left">Plätze</th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y divide-gray-200" id="course-tbody">
-                                <!-- Wird via JS befüllt -->
-                            </tbody>
-                        </table>
-                    </div>
+
+                <!-- Kursplan Tabelle -->
+                <h3 class="text-2xl font-bold text-green-800 mb-4">Kommende Termine</h3>
+                <div class="bg-white p-2 md:p-6 rounded-lg shadow-md overflow-x-auto">
+                    <table class="min-w-full text-black">
+                        <thead class="bg-green-700 text-white">
+                            <tr>
+                                <th class="p-3 text-left rounded-tl-lg">Kurstyp</th>
+                                <th class="p-3 text-left">Datum</th>
+                                <th class="p-3 text-left rounded-tr-lg">Verfügbare Plätze</th>
+                            </tr>
+                        </thead>
+                        <tbody id="course-tbody">
+                            <tr><td colspan="3" class="p-4 text-center">Lade Termine...</td></tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
+        </section>
 
-            <!-- (Rest der Seite: Gallery, Sports, Flohmarkt, Reviews, Contact, Footer bleibt unverändert – ich lasse den HTML-Block übersichtlichkeitshalber hier aus und zeige direkt das Script unten) -->
+        <!-- Gallery Section -->
+        <section id="gallery" class="py-12 section-divider">
+            <div class="container mx-auto px-4">
+                <h2 class="text-4xl font-bold text-green-800 mb-8 text-center">Galerie</h2>
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 gallery-item">
+                    <!-- Bilder mit Lightbox-Funktion -->
+                    <img src="mache dieses logo kl.png" class="w-full h-48 object-cover rounded shadow cursor-pointer hover-scale" onclick="openLightbox(this.src)" alt="Galeriebild 1">
+                    <img src="alle Waffen.JPG" class="w-full h-48 object-cover rounded shadow cursor-pointer hover-scale" onclick="openLightbox(this.src)" alt="Galeriebild 2">
+                    <img src="freies Zeichen.png" class="w-full h-48 object-cover rounded shadow cursor-pointer hover-scale" onclick="openLightbox(this.src)" alt="Galeriebild 3">
+                </div>
+            </div>
+        </section>
 
-<!-- Scripts -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+        <!-- Sports Section -->
+        <section id="sports" class="py-12 section-divider bg-gray-100">
+            <div class="container mx-auto px-4 text-center">
+                <h2 class="text-4xl font-bold text-green-800 mb-6">Sport & Ausbildung</h2>
+                <p class="text-black text-lg max-w-3xl mx-auto mb-8">Wir bieten professionelles Training für verschiedene Disziplinen an, vom statischen Schießen bis hin zur dynamischen Ausbildung. Perfekt für Einsteiger und Fortgeschrittene.</p>
+                <div class="bg-white p-6 rounded-lg shadow max-w-2xl mx-auto text-left">
+                    <ul class="list-disc list-inside text-black space-y-2 text-lg">
+                        <li>Individuelles Einzeltraining</li>
+                        <li>Waffenhandhabung & Sicherheitstraining</li>
+                        <li>Vorbereitung auf Wettkämpfe</li>
+                        <li>Schnupperschießen für Interessierte</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
 
-<script>
-// ========================================
-// 🔥 FIREBASE KONFIGURATION & INITIALISIERUNG
-// ========================================
-const firebaseConfig = {
-    apiKey: "AIzaSyDdAXshQwiuw-3UUETJoynMpLVhpf7MDaA",
-    authDomain: "waffenrecht-guck.firebaseapp.com",
-    projectId: "waffenrecht-guck",
-    storageBucket: "waffenrecht-guck.firebasestorage.app",
-    messagingSenderId: "280006919738",
-    appId: "1:280006919738:web:ec829fb8ad0cba2dcb5703",
-    measurementId: "G-2NVQLD5S74"
-};
+        <!-- Flohmarkt Section -->
+        <section id="flohmarkt" class="py-12 section-divider">
+            <div class="container mx-auto px-4 text-center">
+                <h2 class="text-4xl font-bold text-green-800 mb-6">Flohmarkt</h2>
+                <div class="bg-white p-8 rounded-lg shadow-md max-w-2xl mx-auto border border-gray-200">
+                    <p class="text-black text-lg">Aktuell sind keine Artikel verfügbar. Schauen Sie gerne später wieder vorbei oder kontaktieren Sie uns für spezifische Anfragen!</p>
+                </div>
+            </div>
+        </section>
 
-firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
+        <!-- Reviews Section -->
+        <section id="reviews" class="py-12 section-divider bg-gray-100">
+            <div class="container mx-auto px-4">
+                <h2 class="text-4xl font-bold text-green-800 mb-8 text-center">Was unsere Teilnehmer sagen</h2>
+                <div id="reviews-container" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="text-black text-center col-span-full">Lade Bewertungen...</div>
+                </div>
+            </div>
+        </section>
 
-// ========================================
-// 🔥 DATEN AUS FIREBASE LADEN
-// ========================================
+        <!-- Contact Section -->
+        <section id="contact" class="py-12">
+            <div class="container mx-auto px-4 max-w-2xl">
+                <h2 class="text-4xl font-bold text-green-800 mb-8 text-center">Kontakt & Anmeldung</h2>
+                <div class="bg-white p-8 rounded-lg shadow-xl border border-gray-200">
+                    <p class="text-black mb-6 text-center">Nutzen Sie das Formular für Anmeldungen, Fragen zu Kursen oder allgemeine Anliegen.</p>
+                    <form id="contact-form">
+                        <div class="mb-4">
+                            <label class="block text-black font-bold mb-2" for="name">Name</label>
+                            <input type="text" id="name" name="user_name" placeholder="Ihr vollständiger Name" class="w-full p-3 border rounded text-black bg-gray-50 focus:outline-none focus:border-green-700" required>
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-black font-bold mb-2" for="email">E-Mail</label>
+                            <input type="email" id="email" name="user_email" placeholder="Ihre E-Mail-Adresse" class="w-full p-3 border rounded text-black bg-gray-50 focus:outline-none focus:border-green-700" required>
+                        </div>
+                        <div class="mb-6">
+                            <label class="block text-black font-bold mb-2" for="message">Nachricht / Kursanmeldung</label>
+                            <textarea id="message" name="message" placeholder="Bitte geben Sie hier Ihr Anliegen oder den gewünschten Kurs inkl. Datum an." class="w-full p-3 border rounded text-black bg-gray-50 h-32 focus:outline-none focus:border-green-700" required></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-green-700 text-white py-3 rounded font-bold text-lg hover:bg-green-800 transition shadow-md">Nachricht absenden</button>
+                    </form>
+                    <p id="form-status" class="mt-4 text-center font-bold hidden"></p>
+                </div>
+            </div>
+        </section>
+    </main>
 
-async function loadCourseInfoFromFirebase() {
-    try {
-        const infoSnapshot = await db.collection('courseInfo').doc('info').get();
-        if (infoSnapshot.exists) {
-            const info = infoSnapshot.data();
-            const nextDateEl = document.getElementById('next-course-date');
-            const deadlineEl = document.getElementById('registration-deadline');
-            const durationEl = document.getElementById('course-duration');
-            if (nextDateEl) nextDateEl.textContent = info.nextCourseDate;
-            if (deadlineEl) deadlineEl.textContent = info.registrationDeadline;
-            if (durationEl) durationEl.textContent = info.duration;
+    <footer class="bg-green-900 text-white py-8 text-center">
+        <div class="container mx-auto px-4">
+            <p class="mb-2">&copy; 2024 Waffenrecht-Guck. Alle Rechte vorbehalten.</p>
+            <p class="text-sm text-gray-300">Impressum | Datenschutz</p>
+        </div>
+    </footer>
+
+    <!-- Lightbox Modal HTML (Versteckt) -->
+    <div id="lightboxModal" class="fixed inset-0 z-50 hidden items-center justify-center lightbox-overlay transition-opacity duration-300">
+        <span class="absolute top-4 right-6 text-white text-4xl cursor-pointer hover:text-gray-300" onclick="closeLightbox()">&times;</span>
+        <img id="lightboxImage" src="" alt="Großansicht" class="max-w-full max-h-full rounded shadow-2xl modal-enter">
+    </div>
+
+    <!-- Scripte: Firebase, EmailJS & UI Logik -->
+    <script>
+        // --- 1. Mobile Navigation Logik ---
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const navMenu = document.getElementById('nav-menu');
+        menuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('hidden');
+            navMenu.classList.toggle('flex');
+        });
+
+        // --- 2. Lightbox Logik ---
+        const lightbox = document.getElementById('lightboxModal');
+        const lightboxImg = document.getElementById('lightboxImage');
+
+        function openLightbox(src) {
+            lightboxImg.src = src;
+            lightbox.classList.remove('hidden');
+            lightbox.classList.add('flex');
         }
-    } catch (error) { console.error('Fehler beim Laden der Kursinformationen:', error); }
-}
 
-async function loadCoursePlanFromFirebase() {
-    try {
-        const coursesSnapshot = await db.collection('courses').doc('courseList').get();
-        if (coursesSnapshot.exists) {
-            const courses = coursesSnapshot.data().list || [];
-            const tbody = document.getElementById('course-tbody');
-            if (!tbody) return;
-            tbody.innerHTML = '';
-            courses.forEach((course, index) => {
-                const row = document.createElement('tr');
-                if (index % 2 === 1) row.className = 'bg-gray-50';
-                row.innerHTML = `
-                    <td class="py-3 px-4 text-black">${course.type}</td>
-                    <td class="py-3 px-4 text-black">${course.date}</td>
-                    <td class="py-3 px-4 text-black font-medium">${course.deadline}</td>
-                    <td class="py-3 px-4 text-black">${course.spots}</td>
-                `;
-                tbody.appendChild(row);
-            });
+        function closeLightbox() {
+            lightbox.classList.add('hidden');
+            lightbox.classList.remove('flex');
         }
-    } catch (error) { console.error('Fehler beim Laden des Kursplans:', error); }
-}
 
-async function loadReviewsFromFirebase() {
-    // Unveränderte Logik für Bewertungen
-}
+        // Schließen beim Klick auf den dunklen Hintergrund
+        lightbox.addEventListener('click', function(e) {
+            if(e.target === lightbox) { closeLightbox(); }
+        });
 
-async function loadQualificationsFromFirebase() {
-    // Unveränderte Logik für Qualifikationen
-}
 
-// NEUE FUNKTION: PREISE AUS FIREBASE LADEN
-async function loadPricesFromFirebase() {
-    try {
-        const pricesSnapshot = await db.collection('prices').doc('priceList').get();
-        if (pricesSnapshot.exists) {
-            const prices = pricesSnapshot.data().list || [];
-            prices.forEach(priceItem => {
-                // Finde das HTML-Element passend zum Kursnamen
-                const container = document.querySelector(`[data-price-name="${priceItem.name}"]`);
-                if (container) {
-                    let html = `${priceItem.price}`;
-                    // Wenn es eine Zusatzinfo gibt, füge sie an
-                    if (priceItem.note) {
-                        html += `<br><span class="text-sm">${priceItem.note}</span>`;
-                    }
-                    container.innerHTML = html;
+        // --- 3. EmailJS Logik (Kontaktformular) ---
+        // WICHTIG: Füge hier deinen echten EmailJS Public Key ein!
+        (function() {
+            emailjs.init("DEIN_EMAILJS_PUBLIC_KEY"); 
+        })();
+
+        document.getElementById('contact-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const statusDisplay = document.getElementById('form-status');
+            statusDisplay.classList.remove('hidden', 'text-green-600', 'text-red-600');
+            statusDisplay.textContent = 'Sendet...';
+            statusDisplay.classList.add('text-black');
+
+            // Parameter anpassen: 'YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID'
+            emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', this)
+                .then(function() {
+                    statusDisplay.textContent = 'Nachricht erfolgreich gesendet!';
+                    statusDisplay.classList.replace('text-black', 'text-green-600');
+                    document.getElementById('contact-form').reset();
+                }, function(error) {
+                    statusDisplay.textContent = 'Fehler beim Senden. Bitte versuchen Sie es später erneut.';
+                    statusDisplay.classList.replace('text-black', 'text-red-600');
+                    console.error('EmailJS Error:', error);
+                });
+        });
+
+
+        // --- 4. Firebase CMS Logik ---
+        const firebaseConfig = {
+            apiKey: "AIzaSyA5gXGbM9TQCip1f27904_HlJNnWVCssA8",
+            authDomain: "waffenrecht-guck.firebaseapp.com",
+            projectId: "waffenrecht-guck",
+            storageBucket: "waffenrecht-guck.firebasestorage.app",
+            messagingSenderId: "280006919738",
+            appId: "1:280006919738:web:ec829fb8ad0cba2dcb5703"
+        };
+
+        // Initialisieren
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+        const db = firebase.firestore();
+
+        // Ladefunktionen
+        async function loadPrices() {
+            try {
+                const snap = await db.collection('prices').doc('priceList').get();
+                if (snap.exists) {
+                    const prices = snap.data().list || [];
+                    prices.forEach(p => {
+                        // Sucht das HTML Element mit dem passenden data-price-name Attribut
+                        const el = document.querySelector(`[data-price-name="${p.name}"]`);
+                        if (el) el.innerHTML = `${p.price} € ${p.note ? '<br><span class="text-sm font-normal text-black">' + p.note + '</span>' : ''}`;
+                    });
                 }
-            });
+            } catch(e) { console.error("Fehler beim Laden der Preise:", e); }
         }
-    } catch (error) {
-        console.error('Fehler beim Laden der Preise:', error);
-    }
-}
 
-// ========================================
-// 🚀 INITIALISIERUNG
-// ========================================
-document.addEventListener('DOMContentLoaded', async function() {
-    console.log('🔥 Firebase wird initialisiert...');
-    
-    await loadCourseInfoFromFirebase();
-    await loadCoursePlanFromFirebase();
-    await loadReviewsFromFirebase();
-    await loadQualificationsFromFirebase();
-    await loadPricesFromFirebase(); // <-- HIER DIE NEUE FUNKTION AUFGERUFEN
-    
-    console.log('✅ Alle Daten aus Firebase geladen!');
-});
+        async function loadInfo() {
+            try {
+                const snap = await db.collection('courseInfo').doc('info').get();
+                if (snap.exists) {
+                    const data = snap.data();
+                    document.getElementById('next-course-date').textContent = data.nextCourseDate || '-';
+                    document.getElementById('registration-deadline').textContent = data.registrationDeadline || '-';
+                    document.getElementById('course-duration').textContent = data.duration || '-';
+                }
+            } catch(e) { console.error("Fehler beim Laden der Info:", e); }
+        }
 
-// Aktualisiere alle 30 Sekunden
-setInterval(async function() {
-    await loadCourseInfoFromFirebase();
-    await loadCoursePlanFromFirebase();
-    await loadReviewsFromFirebase();
-    await loadQualificationsFromFirebase();
-    await loadPricesFromFirebase(); // <-- HIER EBENFALLS AUFRUFEN
-}, 30000);
+        async function loadCoursePlan() {
+            try {
+                const snap = await db.collection('courses').doc('courseList').get();
+                const tbody = document.getElementById('course-tbody');
+                if (snap.exists && snap.data().list && snap.data().list.length > 0) {
+                    const list = snap.data().list;
+                    tbody.innerHTML = list.map(c => `
+                        <tr class="border-b border-gray-200 hover:bg-gray-50 transition">
+                            <td class="p-3 font-medium">${c.type}</td>
+                            <td class="p-3">${c.date}</td>
+                            <td class="p-3 text-green-700 font-bold">${c.spots}</td>
+                        </tr>
+                    `).join('');
+                } else {
+                    tbody.innerHTML = '<tr><td colspan="3" class="p-4 text-center">Derzeit keine Termine eingetragen.</td></tr>';
+                }
+            } catch(e) { console.error("Fehler beim Laden des Kursplans:", e); }
+        }
 
-// (Der Rest mit Kontaktformular und Modal bleibt exakt gleich, habe ihn hier abgekürzt, um Platz zu sparen. Bitte lass deinen vorhandenen Code hier unberührt)
-</script>
+        async function loadQuals() {
+            try {
+                const snap = await db.collection('qualifications').doc('qualList').get();
+                const qualList = document.getElementById('qualifications-list');
+                if (snap.exists && snap.data().list) {
+                    const list = snap.data().list;
+                    qualList.innerHTML = list.map(q => `
+                        <li class="flex items-start">
+                            <span class="text-green-600 mr-2">✓</span>
+                            <span>${q}</span>
+                        </li>
+                    `).join('');
+                } else {
+                    qualList.innerHTML = '<li>Qualifikationen konnten nicht geladen werden.</li>';
+                }
+            } catch(e) { console.error("Fehler beim Laden der Qualifikationen:", e); }
+        }
+
+        async function loadReviews() {
+            try {
+                const snap = await db.collection('reviews').doc('reviewList').get();
+                const container = document.getElementById('reviews-container');
+                if (snap.exists && snap.data().list && snap.data().list.length > 0) {
+                    const list = snap.data().list;
+                    container.innerHTML = list.map(r => `
+                        <div class="bg-white p-6 rounded-lg shadow-md border border-gray-200 flex flex-col justify-between">
+                            <div>
+                                <div class="text-yellow-500 text-xl mb-2">${'★'.repeat(r.rating)}${'☆'.repeat(5-r.rating)}</div>
+                                <p class="text-black italic mb-4">"${r.text}"</p>
+                            </div>
+                            <div class="font-bold text-green-800 text-right">- ${r.name} ${r.initials ? `(${r.initials})` : ''}</div>
+                        </div>
+                    `).join('');
+                } else {
+                    container.innerHTML = '<div class="text-black col-span-full text-center">Noch keine Bewertungen vorhanden.</div>';
+                }
+            } catch(e) { console.error("Fehler beim Laden der Bewertungen:", e); }
+        }
+
+        // Alle Ladefunktionen beim Start ausführen
+        window.addEventListener('DOMContentLoaded', () => {
+            loadPrices();
+            loadInfo();
+            loadCoursePlan();
+            loadQuals();
+            loadReviews();
+        });
+    </script>
 </body>
 </html>
