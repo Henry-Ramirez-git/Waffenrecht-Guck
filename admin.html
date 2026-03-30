@@ -122,6 +122,7 @@
                     if (coursesSnapshot.exists) {
                         setCourses(coursesSnapshot.data().list || []);
                     } else {
+                        // Initial Daten setzen
                         const initialCourses = [
                             { type: 'Allgemeine Waffensachkunde', date: '15.03.2025', deadline: '01.08.2025', spots: '12/15' },
                             { type: 'Erweiterte Waffensachkunde', date: '22.03.2025', deadline: '15.08.2025', spots: '8/10' },
@@ -201,6 +202,9 @@
                 }
             };
 
+            // ========================================
+            // 🔐 LOGIN (NUR PASSWORT, KEINE FIREBASE AUTH)
+            // ========================================
             const handleLogin = (e) => {
                 e.preventDefault();
                 if (password === ADMIN_PASSWORD) {
@@ -210,6 +214,9 @@
                 }
             };
 
+            // ========================================
+            // 📝 KURSE VERWALTEN
+            // ========================================
             const handleAddCourse = async () => {
                 if (!newCourse.type || !newCourse.date || !newCourse.deadline || !newCourse.spots) {
                     alert('Bitte alle Felder ausfüllen!');
@@ -218,6 +225,7 @@
 
                 const updatedCourses = [...courses, { ...newCourse }];
                 setCourses(updatedCourses);
+                
                 await db.collection('courses').doc('courseList').set({ list: updatedCourses });
                 
                 setNewCourse({ type: '', date: '', deadline: '', spots: '' });
@@ -238,6 +246,9 @@
                 showSaveMessage('Informationen gespeichert!');
             };
 
+            // ========================================
+            // ⭐ BEWERTUNGEN VERWALTEN
+            // ========================================
             const handleAddReview = async () => {
                 if (!newReview.name || !newReview.initials || !newReview.text) {
                     alert('Bitte alle Felder ausfüllen!');
@@ -266,22 +277,29 @@
                 }
             };
 
+            // ========================================
+            // 💰 PREISE VERWALTEN
+            // ========================================
             const handleUpdatePrice = (index, field, value) => {
-                const updatedPrices = [...coursePrices];
-                updatedPrices[index] = { ...updatedPrices[index], [field]: value };
-                setCoursePrices(updatedPrices);
+             const updatedPrices = [...coursePrices];
+              // Richtig: Ein komplett neues Objekt für den geänderten Eintrag erstellen
+              updatedPrices[index] = { ...updatedPrices[index], [field]: value };
+              setCoursePrices(updatedPrices);
             }; 
 
             const handleSavePrices = async () => {
-                try {
-                    await db.collection('prices').doc('priceList').set({ list: coursePrices });
-                    showSaveMessage('Preise gespeichert!');
-                } catch (error) {
-                    console.error("Fehler beim Speichern der Preise:", error);
-                    alert("Fehler beim Speichern! Schau in die Entwicklerkonsole (F12).");
-                }
+             try {
+               await db.collection('prices').doc('priceList').set({ list: coursePrices });
+               showSaveMessage('Preise gespeichert!');
+               } catch (error) {
+                  console.error("Fehler beim Speichern der Preise:", error);
+                  alert("Fehler beim Speichern! Schau in die Entwicklerkonsole (F12).");
+               }
             };
 
+            // ========================================
+            // 🎓 QUALIFIKATIONEN VERWALTEN
+            // ========================================
             const handleAddQualification = async () => {
                 if (!newQualification.trim()) {
                     alert('Bitte eine Qualifikation eingeben!');
@@ -379,7 +397,9 @@
                                 <button
                                     onClick={() => setActiveTab('courses')}
                                     className={`flex-1 py-4 px-6 font-medium transition whitespace-nowrap ${
-                                        activeTab === 'courses' ? 'bg-green-700 text-white' : 'bg-white text-gray-700 hover:bg-gray-100'
+                                        activeTab === 'courses'
+                                            ? 'bg-green-700 text-white'
+                                            : 'bg-white text-gray-700 hover:bg-gray-100'
                                     }`}
                                 >
                                     Kursverwaltung
@@ -387,7 +407,9 @@
                                 <button
                                     onClick={() => setActiveTab('prices')}
                                     className={`flex-1 py-4 px-6 font-medium transition whitespace-nowrap ${
-                                        activeTab === 'prices' ? 'bg-green-700 text-white' : 'bg-white text-gray-700 hover:bg-gray-100'
+                                        activeTab === 'prices'
+                                            ? 'bg-green-700 text-white'
+                                            : 'bg-white text-gray-700 hover:bg-gray-100'
                                     }`}
                                 >
                                     Preise
@@ -395,7 +417,9 @@
                                 <button
                                     onClick={() => setActiveTab('qualifications')}
                                     className={`flex-1 py-4 px-6 font-medium transition whitespace-nowrap ${
-                                        activeTab === 'qualifications' ? 'bg-green-700 text-white' : 'bg-white text-gray-700 hover:bg-gray-100'
+                                        activeTab === 'qualifications'
+                                            ? 'bg-green-700 text-white'
+                                            : 'bg-white text-gray-700 hover:bg-gray-100'
                                     }`}
                                 >
                                     Qualifikationen
@@ -403,7 +427,9 @@
                                 <button
                                     onClick={() => setActiveTab('reviews')}
                                     className={`flex-1 py-4 px-6 font-medium transition whitespace-nowrap ${
-                                        activeTab === 'reviews' ? 'bg-green-700 text-white' : 'bg-white text-gray-700 hover:bg-gray-100'
+                                        activeTab === 'reviews'
+                                            ? 'bg-green-700 text-white'
+                                            : 'bg-white text-gray-700 hover:bg-gray-100'
                                     }`}
                                 >
                                     Bewertungen
@@ -413,7 +439,6 @@
 
                         {/* Kursverwaltung */}
                         {activeTab === 'courses' && (
-                            /* ... (Unveränderter Kurs-Code) ... */
                             <>
                                 <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
                                     <h2 className="text-2xl font-bold text-green-800 mb-4">Aktuelle Informationen</h2>
@@ -571,7 +596,6 @@
                                                 </div>
                                                 <div>
                                                     <label className="block text-gray-700 font-medium mb-2">Zusatzinfo</label>
-                                                    {/* FEHLER BEHOBEN: Hier stand 'price' statt 'note' im onChange-Event */}
                                                     <input
                                                         type="text"
                                                         value={course.note}
@@ -596,7 +620,6 @@
 
                         {/* Qualifikationsverwaltung */}
                         {activeTab === 'qualifications' && (
-                            /* ... (Unveränderter Qualifikations-Code) ... */
                             <>
                                 <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
                                     <h2 className="text-2xl font-bold text-green-800 mb-4">Neue Qualifikation hinzufügen</h2>
@@ -658,7 +681,6 @@
 
                         {/* Bewertungsverwaltung */}
                         {activeTab === 'reviews' && (
-                             /* ... (Unveränderter Bewertungs-Code) ... */
                             <>
                                 <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
                                     <h2 className="text-2xl font-bold text-green-800 mb-4">Neue Bewertung hinzufügen</h2>
