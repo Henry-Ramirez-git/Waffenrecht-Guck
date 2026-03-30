@@ -1171,6 +1171,32 @@ async function loadQualificationsFromFirebase() {
         console.error('Fehler beim Laden der Qualifikationen:', error);
     }
 }
+    async function loadPricesFromFirebase() {
+    try {
+        const pricesSnapshot = await db.collection('prices').doc('priceList').get();
+        if (!pricesSnapshot.exists) return;
+
+        const prices = pricesSnapshot.data().list || [];
+
+        prices.forEach(item => {
+            // Suche die Kurskarte anhand des Namens
+            const cards = document.querySelectorAll('#courses .bg-white');
+            cards.forEach(card => {
+                const heading = card.querySelector('h3');
+                if (heading && heading.textContent.trim() === item.name) {
+                    const priceEl = card.querySelector('p.text-green-700, p.font-bold');
+                    if (priceEl) {
+                        priceEl.innerHTML = item.price +
+                            (item.note ? `<br><span class="text-sm">${item.note}</span>` : '');
+                    }
+                }
+            });
+        });
+
+    } catch (error) {
+        console.error('Fehler beim Laden der Preise:', error);
+    }
+}
 
 // ========================================
 // 🚀 INITIALISIERUNG - Lade alle Daten
@@ -1182,7 +1208,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     await loadCoursePlanFromFirebase();
     await loadReviewsFromFirebase();
     await loadQualificationsFromFirebase();
-    
+    await loadPricesFromFirebase();
     console.log('✅ Alle Daten aus Firebase geladen!');
 });
 
@@ -1192,6 +1218,7 @@ setInterval(async function() {
     await loadCoursePlanFromFirebase();
     await loadReviewsFromFirebase();
     await loadQualificationsFromFirebase();
+    await loadPricesFromFirebase();
 }, 30000);
 
 // ========================================
